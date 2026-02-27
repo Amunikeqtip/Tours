@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="tours.web.client/tours.web.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
