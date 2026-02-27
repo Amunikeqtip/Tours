@@ -1,0 +1,138 @@
+<main class="home-page">
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Discover The Smoke<br />That Thunders</h1>
+      <p>
+        Experience the raw power of Victoria Falls and the wild heart of Zimbabwe.
+        Your journey to the soul of Africa begins here.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/booking" class="btn btn-primary">Book Your Adventure</a>
+        <button type="button" class="btn btn-dark">Watch Video</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section intro">
+    <div class="section-title centered">
+      <h2>Choose Your Adventure</h2>
+      <p>Explore our most popular categories curated for every type of explorer.</p>
+    </div>
+
+    <div class="adventure-grid">
+      <article class="adventure-card" *ngFor="let adventure of adventures" [style.background-image]="'url(' + adventure.image + ')'">
+        <div class="card-fade"></div>
+        <div class="adventure-content">
+          <span class="icon"><i [class]="adventure.icon"></i></span>
+          <h3>{{ adventure.title }}</h3>
+          <p>{{ adventure.subtitle }}</p>
+          <a routerLink="/game-drives">Explore <i class="pi pi-angle-right"></i></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section deals">
+    <div class="section-title with-action">
+      <div>
+        <h2>Best Value Packages</h2>
+        <p>Handpicked experiences with guaranteed lowest prices.</p>
+      </div>
+      <button type="button" class="ghost-link">View All Deals</button>
+    </div>
+
+    <div class="deals-grid">
+      <article class="deal-card" *ngFor="let deal of deals">
+        <div class="deal-image" [style.background-image]="'url(' + deal.image + ')'">
+          <span class="deal-badge">{{ deal.badge }}</span>
+        </div>
+        <div class="deal-body">
+          <p class="meta"><span>{{ deal.duration }}</span><span><i class="pi pi-star-fill"></i> {{ deal.rating }}</span></p>
+          <h3>{{ deal.title }}</h3>
+          <div class="deal-footer">
+            <p>From <strong>${{ deal.price }}</strong></p>
+            <button type="button" class="btn btn-small btn-blue" routerLink="/booking">Book Now</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section mission">
+    <div class="mission-image">
+      <img src="https://source.unsplash.com/900x1200/?african,guide,portrait" alt="Local guide portrait" />
+      <blockquote>
+        "The waterfalls belong to the heart of Africa, but the people carry its soul."
+        <span>Gill Vaya - Chief Guide</span>
+      </blockquote>
+    </div>
+    <div class="mission-copy">
+      <span class="pill">Culture & Conservation</span>
+      <h2>Beyond the Falling Waters</h2>
+      <p>
+        While the Falls capture the eyes, the wildlife and the people of Zimbabwe
+        capture the heart. We partner with local communities to ensure your visit
+        supports conservation efforts and creates sustainable opportunities.
+      </p>
+      <ul>
+        <li *ngFor="let point of missionPoints">{{ point }}</li>
+      </ul>
+      <button type="button" class="btn btn-dark">Learn About Our Mission</button>
+    </div>
+  </section>
+
+  <section class="section reviews">
+    <div class="section-title centered">
+      <h2>Voices from the Falls</h2>
+      <p>This month of happy adventurers have explored Zimbabwe with us. Here is what they have to say.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <article class="review-card" *ngFor="let review of testimonials">
+        <p class="stars">★★★★★</p>
+        <p class="quote">"{{ review.quote }}"</p>
+        <div class="reviewer">
+          <img [src]="review.image" [alt]="review.author" />
+          <div>
+            <strong>{{ review.author }}</strong>
+            <span>{{ review.location }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="trust-row">
+      <article class="trust-item" *ngFor="let badge of trustBadges">
+        <i [class]="badge.icon"></i>
+        <div>
+          <h4>{{ badge.title }}</h4>
+          <p>{{ badge.text }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section route-map">
+    <div class="map-card">
+      <div class="map-overlay">
+        <h2>Plan Your Route</h2>
+        <p>From the falls to river trails, pick your best expedition and safari routes before arrival.</p>
+        <div class="map-actions">
+          <button type="button" class="btn btn-small btn-blue">Open Interactive Map</button>
+          <button type="button" class="btn btn-small btn-light">Navigation Support</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta">
+    <h2>Ready to Hear the Thunder?</h2>
+    <p>Join thousands of adventurers who have discovered the magic of Zimbabwe. Secure your 2026/2027 dates now for the best seasonal rates.</p>
+    <div class="hero-actions centered-actions">
+      <button type="button" class="btn btn-primary" routerLink="/booking">Book My Trip</button>
+      <button type="button" class="btn btn-light">Contact an Expert</button>
+    </div>
+  </section>
+</main>
+

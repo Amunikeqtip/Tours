@@ -1,0 +1,240 @@
+.contact-page {
+  background: #f4f5f7;
+}
+
+.section {
+  margin: 0 auto;
+  max-width: 1150px;
+  padding: 1.2rem 1rem;
+}
+
+.hero {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1.1fr 1fr;
+  padding-top: 2rem;
+}
+
+.eyebrow {
+  background: #e8f2ff;
+  border-radius: 999px;
+  color: #2563eb;
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 0.28rem 0.6rem;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2rem, 4.8vw, 3.6rem);
+  line-height: 0.98;
+  margin: 0.75rem 0 0;
+  max-width: 620px;
+}
+
+.hero-copy p {
+  color: #64748b;
+  line-height: 1.62;
+  margin: 0.95rem 0 0;
+  max-width: 620px;
+}
+
+.stats {
+  display: flex;
+  gap: 1.4rem;
+  margin-top: 1rem;
+}
+
+.stats article {
+  border-right: 1px solid #d6dee8;
+  padding-right: 1.2rem;
+}
+
+.stats article:last-child {
+  border-right: 0;
+}
+
+.stats h3 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.stats p {
+  color: #94a3b8;
+  font-size: 0.78rem;
+  margin: 0.15rem 0 0;
+}
+
+.featured-card {
+  background: #ffffff;
+  border: 1px solid #dce3ec;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.13);
+  overflow: hidden;
+  padding: 0.45rem;
+}
+
+.featured-image {
+  background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.66)), url('https://source.unsplash.com/1200x900/?travel,team,guide');
+  background-position: center;
+  background-size: cover;
+  border-radius: 12px;
+  min-height: 330px;
+}
+
+.featured-caption {
+  bottom: 1.25rem;
+  color: #ffffff;
+  left: 1.4rem;
+  position: relative;
+}
+
+.featured-caption p {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.featured-caption h3 {
+  margin: 0.3rem 0 0;
+  max-width: 90%;
+}
+
+.channels {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-top: 1.5rem;
+}
+
+.channels article {
+  background: #ffffff;
+  border: 1px solid #dde4ee;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.icon {
+  align-items: center;
+  background: #eff6ff;
+  border-radius: 999px;
+  color: #2288ff;
+  display: inline-flex;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.channels h3 {
+  margin: 0.7rem 0 0.35rem;
+}
+
+.channels h4 {
+  color: #0f172a;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.channels p {
+  color: #64748b;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0.45rem 0 0;
+}
+
+.support-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 1.6rem;
+  padding-bottom: 2rem;
+}
+
+.topics,
+.contact-form {
+  background: #ffffff;
+  border: 1px solid #dde4ee;
+  border-radius: 12px;
+  padding: 1.1rem;
+}
+
+.topics h2,
+.contact-form h2 {
+  margin: 0 0 0.9rem;
+}
+
+.topics article {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.topics h3 {
+  margin: 0;
+}
+
+.topics p {
+  color: #64748b;
+  margin: 0.4rem 0 0;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.contact-form label {
+  color: #334155;
+  display: grid;
+  font-size: 0.8rem;
+  font-weight: 700;
+  gap: 0.35rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  border: 1px solid #d5dde7;
+  border-radius: 10px;
+  font: inherit;
+  padding: 0.62rem 0.75rem;
+}
+
+.contact-form button {
+  background: #2288ff;
+  border: 0;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 0.35rem;
+  padding: 0.72rem 1rem;
+}
+
+@media (max-width: 1024px) {
+  .hero,
+  .support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .stats {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .stats article {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .channels {
+    grid-template-columns: 1fr;
+  }
+}

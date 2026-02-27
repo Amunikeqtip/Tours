@@ -1,0 +1,513 @@
+.home-page {
+  background: #f2f2f3;
+  color: #111827;
+  margin: 0 auto;
+}
+
+.section {
+  margin: 0 auto;
+  max-width: 1120px;
+  padding: 3.2rem 1rem;
+}
+
+.hero {
+  background-image: url('https://source.unsplash.com/1800x900/?city,skyline,sunset');
+  background-position: center;
+  background-size: cover;
+  min-height: 540px;
+  position: relative;
+}
+
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(8, 18, 34, 0.3), rgba(8, 18, 34, 0.7));
+  inset: 0;
+  position: absolute;
+}
+
+.hero-content {
+  color: #ffffff;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 8rem 1rem 2rem;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.hero-content p {
+  color: #e5e7eb;
+  margin: 1rem auto 0;
+  max-width: 640px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.7rem 1.1rem;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #f59e0b;
+  color: #111827;
+}
+
+.btn-dark {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.btn-light {
+  background: #ffffff;
+  color: #111827;
+}
+
+.btn-blue {
+  background: #2288ff;
+  color: #ffffff;
+}
+
+.btn-small {
+  font-size: 0.72rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.section-title h2 {
+  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  margin: 0;
+}
+
+.section-title p {
+  color: #6b7280;
+  margin: 0.45rem 0 0;
+}
+
+.section-title.centered {
+  text-align: center;
+}
+
+.section-title.with-action {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.ghost-link {
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+}
+
+.adventure-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.3rem;
+}
+
+.adventure-card {
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+  min-height: 260px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-fade {
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.15), rgba(17, 24, 39, 0.92));
+  inset: 0;
+  position: absolute;
+}
+
+.adventure-content {
+  bottom: 0;
+  color: #ffffff;
+  left: 0;
+  padding: 1rem;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.adventure-content .icon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  display: inline-flex;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.adventure-content h3 {
+  font-size: 1.15rem;
+  margin: 0.55rem 0 0;
+}
+
+.adventure-content p {
+  color: #dbeafe;
+  font-size: 0.82rem;
+  margin: 0.4rem 0;
+}
+
+.adventure-content a {
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.deals-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 1.15rem;
+}
+
+.deal-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.deal-image {
+  background-position: center;
+  background-size: cover;
+  height: 110px;
+  padding: 0.55rem;
+}
+
+.deal-badge {
+  background: #111827;
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.25rem 0.45rem;
+}
+
+.deal-body {
+  padding: 0.75rem;
+}
+
+.deal-body .meta {
+  color: #6b7280;
+  display: flex;
+  font-size: 0.66rem;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.deal-body h3 {
+  font-size: 0.92rem;
+  margin: 0.5rem 0;
+}
+
+.deal-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.deal-footer p {
+  color: #6b7280;
+  font-size: 0.68rem;
+  margin: 0;
+}
+
+.deal-footer strong {
+  color: #2563eb;
+  display: block;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.mission {
+  align-items: center;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mission-image {
+  position: relative;
+}
+
+.mission-image img {
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+}
+
+.mission-image blockquote {
+  background: #2087e7;
+  border-radius: 10px;
+  bottom: -14px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-style: italic;
+  left: 54%;
+  margin: 0;
+  max-width: 220px;
+  padding: 0.95rem;
+  position: absolute;
+}
+
+.mission-image blockquote span {
+  color: #dbeafe;
+  display: block;
+  font-size: 0.65rem;
+  margin-top: 0.55rem;
+}
+
+.pill {
+  background: #fff7ed;
+  border-radius: 999px;
+  color: #b45309;
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.65rem;
+  text-transform: uppercase;
+}
+
+.mission-copy h2 {
+  font-size: clamp(1.8rem, 4vw, 2.9rem);
+  margin: 0.65rem 0;
+}
+
+.mission-copy p {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.mission-copy ul {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.mission-copy li {
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.mission-copy li::before {
+  content: '›';
+  left: 0;
+  position: absolute;
+}
+
+.reviews {
+  border-top: 1px solid #e5e7eb;
+}
+
+.reviews-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.2rem;
+}
+
+.review-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.05rem;
+}
+
+.stars {
+  color: #f59e0b;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.quote {
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0.65rem 0 0.9rem;
+}
+
+.reviewer {
+  align-items: center;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.reviewer img {
+  border-radius: 50%;
+  height: 34px;
+  object-fit: cover;
+  width: 34px;
+}
+
+.reviewer strong {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.reviewer span {
+  color: #6b7280;
+  font-size: 0.72rem;
+}
+
+.trust-row {
+  border-top: 1px solid #e5e7eb;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+}
+
+.trust-item {
+  align-items: center;
+  display: flex;
+  gap: 0.55rem;
+}
+
+.trust-item i {
+  color: #2563eb;
+  font-size: 1rem;
+}
+
+.trust-item h4 {
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.trust-item p {
+  color: #6b7280;
+  font-size: 0.68rem;
+  margin: 0;
+}
+
+.route-map {
+  padding-top: 2rem;
+}
+
+.map-card {
+  background-image: url('https://source.unsplash.com/1800x900/?topographic,map,river');
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.map-overlay {
+  align-content: center;
+  background: rgba(17, 24, 39, 0.26);
+  color: #ffffff;
+  min-height: 320px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.map-overlay h2 {
+  font-size: clamp(1.8rem, 4vw, 2.9rem);
+  margin: 0;
+}
+
+.map-overlay p {
+  color: #e5e7eb;
+  margin: 0.6rem auto 0;
+  max-width: 540px;
+}
+
+.map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.cta {
+  background: radial-gradient(circle at top right, #0a4fa8, #020617 55%);
+  border-radius: 10px;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.cta p {
+  color: #d1d5db;
+  margin: 0.6rem auto 0;
+  max-width: 680px;
+}
+
+.centered-actions {
+  margin-top: 1.15rem;
+}
+
+@media (max-width: 1024px) {
+  .adventure-grid,
+  .deals-grid,
+  .trust-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mission,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-image blockquote {
+    left: 1rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 2.3rem 0.8rem;
+  }
+
+  .hero-content {
+    padding-top: 6.6rem;
+  }
+
+  .adventure-grid,
+  .deals-grid,
+  .reviews-grid,
+  .trust-row {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title.with-action {
+    align-items: start;
+    flex-direction: column;
+  }
+}

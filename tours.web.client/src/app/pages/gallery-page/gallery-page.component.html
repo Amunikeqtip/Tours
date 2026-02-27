@@ -1,0 +1,68 @@
+<main class="gallery-page">
+  <section class="section hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Visual Journey</span>
+      <h1>Capturing the <span>Wild Spirit</span> of Zimbabwe</h1>
+      <p>
+        From the roaring mists of Victoria Falls to the silent prowl of the African
+        leopard, explore our curated collection of moments that define the adventure.
+      </p>
+      <div class="stats">
+        <article *ngFor="let stat of stats">
+          <h3>{{ stat.value }}</h3>
+          <p>{{ stat.label }}</p>
+        </article>
+      </div>
+    </div>
+
+    <article class="featured-card">
+      <div class="featured-image"></div>
+      <div class="featured-caption">
+        <p>Featured Highlight</p>
+        <h3>The Golden Hour in Hwange</h3>
+      </div>
+    </article>
+  </section>
+
+  <section class="section filters">
+    <button type="button" *ngFor="let filter of filters" [class.active]="filter.active">{{ filter.label }}</button>
+  </section>
+
+  <section class="section journey-bar">
+    <div class="avatars">
+      <img src="https://source.unsplash.com/80x80/?traveler,portrait" alt="traveler 1" />
+      <img src="https://source.unsplash.com/80x80/?woman,travel,portrait" alt="traveler 2" />
+      <img src="https://source.unsplash.com/80x80/?man,travel,portrait" alt="traveler 3" />
+      <img src="https://source.unsplash.com/80x80/?guide,portrait" alt="traveler 4" />
+      <span>+42</span>
+    </div>
+    <p><strong>Join 4,200+ travelers</strong> sharing their journey.</p>
+    <div class="journey-meta">
+      <span><i class="pi pi-camera"></i> 7 Photos</span>
+      <span><i class="pi pi-video"></i> 2 Videos</span>
+      <span><i class="pi pi-users"></i> User Submissions Open</span>
+    </div>
+  </section>
+
+  <section class="section gallery-grid">
+    <article *ngFor="let item of images" [class.large]="item.large">
+      <img [src]="item.image" [alt]="item.title" />
+      <button type="button" class="expand"><i class="pi pi-arrow-up-right"></i></button>
+    </article>
+  </section>
+
+  <section class="section cta">
+    <div>
+      <h2>Ready to make your own memories?</h2>
+      <p>
+        Our expert photographers are available on all guided tours to capture your
+        moments while you immerse yourself in the adventure.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <button type="button" routerLink="/booking">Book a Photo Safari</button>
+      <button type="button">View Tour Packages</button>
+    </div>
+  </section>
+</main>
+

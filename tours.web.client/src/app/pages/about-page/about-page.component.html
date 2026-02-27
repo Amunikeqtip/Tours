@@ -1,0 +1,69 @@
+<main class="about-page">
+  <section class="section hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Who We Are</span>
+      <h1>Built by <span>Local Experts</span> for Meaningful Zimbabwe Journeys</h1>
+      <p>
+        We are a Victoria Falls-based team designing immersive adventures across
+        Zimbabwe, combining trusted logistics with authentic local storytelling.
+      </p>
+      <div class="stats">
+        <article *ngFor="let stat of stats">
+          <h3>{{ stat.value }}</h3>
+          <p>{{ stat.label }}</p>
+        </article>
+      </div>
+    </div>
+
+    <article class="featured-card">
+      <div class="featured-image"></div>
+      <div class="featured-caption">
+        <p>Our Mission</p>
+        <h3>Craft memorable journeys that respect place, people, and wildlife.</h3>
+      </div>
+    </article>
+  </section>
+
+  <section class="section filters">
+    <button type="button" class="active">Our Story</button>
+    <button type="button">Our Team</button>
+    <button type="button">Our Values</button>
+    <button type="button">Community</button>
+    <button type="button">Sustainability</button>
+  </section>
+
+  <section class="section journey-bar">
+    <div class="avatars">
+      <img src="https://source.unsplash.com/80x80/?guide,portrait" alt="team member 1" />
+      <img src="https://source.unsplash.com/80x80/?woman,guide,portrait" alt="team member 2" />
+      <img src="https://source.unsplash.com/80x80/?man,guide,portrait" alt="team member 3" />
+      <img src="https://source.unsplash.com/80x80/?african,travel,portrait" alt="team member 4" />
+      <span>+28</span>
+    </div>
+    <p><strong>Meet the people behind every itinerary</strong></p>
+    <div class="journey-meta">
+      <span *ngFor="let pillar of pillars"><i class="pi pi-check-circle"></i> {{ pillar.title }}</span>
+    </div>
+  </section>
+
+  <section class="section gallery-grid">
+    <article *ngFor="let item of moments" [class.large]="item.large">
+      <img [src]="item.image" [alt]="item.title" />
+      <button type="button" class="expand"><i class="pi pi-arrow-up-right"></i></button>
+    </article>
+  </section>
+
+  <section class="section cta">
+    <div>
+      <h2>Let’s plan your Zimbabwe journey</h2>
+      <p>
+        Talk to our local team and build a trip that fits your interests, pace,
+        and travel dates.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <button type="button">Speak to a Specialist</button>
+      <button type="button">Explore Tour Packages</button>
+    </div>
+  </section>
+</main>

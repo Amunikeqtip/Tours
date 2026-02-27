@@ -1,0 +1,97 @@
+<main class="activities-page">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Natural Wonder of the World</span>
+      <h1>The Smoke That <span>Thunders</span></h1>
+      <p>
+        Explore the majesty of Victoria Falls through our curated selection of guided
+        tours, cruises, and cultural encounters.
+      </p>
+      <div class="hero-actions">
+        <button type="button" class="btn btn-primary">Plan Your Visit</button>
+        <button type="button" class="btn btn-light">View Gallery</button>
+      </div>
+    </div>
+    <div class="hero-image"></div>
+  </section>
+
+  <section class="section tours">
+    <div class="tours-main">
+      <div class="section-head">
+        <div>
+          <h2>Curated Experiences</h2>
+          <p>Found 3 unique adventures for you</p>
+        </div>
+        <div class="chips">
+          <span>Recommended</span>
+          <span>Price: Low to High</span>
+        </div>
+      </div>
+
+      <article class="tour-card" *ngFor="let activity of activities">
+        <div class="tour-image" [style.background-image]="'url(' + activity.image + ')'">
+          <div class="tour-tags">
+            <span>{{ activity.duration }}</span>
+            <span>{{ activity.fitness }}</span>
+          </div>
+        </div>
+
+        <div class="tour-body">
+          <h3>{{ activity.title }} <span><i class="pi pi-star-fill"></i> {{ activity.rating }}</span></h3>
+          <p>{{ activity.description }}</p>
+          <ul>
+            <li *ngFor="let feature of activity.features"><i class="pi pi-check-circle"></i> {{ feature }}</li>
+          </ul>
+          <a href="#" class="itinerary">View Tour Itinerary <i class="pi pi-angle-down"></i></a>
+          <div class="tour-footer">
+            <p>FROM <strong>${{ activity.price }}</strong></p>
+            <div>
+              <button type="button" class="btn btn-outline btn-sm" routerLink="/booking">Inquire</button>
+              <button type="button" class="btn btn-primary btn-sm" routerLink="/booking">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <aside class="tours-side">
+      <section class="assist-card">
+        <h3>Booking Assistant</h3>
+        <p>I have questions about the tours? Our local experts are here to help 24/7.</p>
+        <article *ngFor="let feature of sideFeatures">
+          <h4><i class="pi pi-check-circle"></i> {{ feature.title }}</h4>
+          <p>{{ feature.subtitle }}</p>
+        </article>
+        <button type="button" class="btn btn-primary side-btn" routerLink="/booking">Check Availability</button>
+        <button type="button" class="btn btn-light side-btn">Chat with an Expert</button>
+      </section>
+
+      <section class="why-card">
+        <h4>Why Journey With Us?</h4>
+        <p><i class="pi pi-users"></i> Licensed Local Guides</p>
+        <p><i class="pi pi-verified"></i> Eco-Tourism Certified</p>
+        <p><i class="pi pi-star"></i> 20+ Years Experience</p>
+      </section>
+
+      <section class="download-card">
+        <h4>Download our 2024 Safari Guide</h4>
+        <a href="#">View Gallery <i class="pi pi-arrow-right"></i></a>
+      </section>
+    </aside>
+  </section>
+
+  <section class="section beyond">
+    <span class="eyebrow center">Complete Your Journey</span>
+    <h2>Beyond the Waterfall</h2>
+    <p>Pair your tour with these popular adventures to make the most of your time in Victoria Falls.</p>
+    <div class="extras-grid">
+      <article *ngFor="let combo of combos">
+        <span class="extra-icon"><i [class]="combo.icon"></i></span>
+        <h3>{{ combo.title }}</h3>
+        <p>{{ combo.subtitle }}</p>
+        <a href="#">Explore Activity <i class="pi pi-angle-right"></i></a>
+      </article>
+    </div>
+  </section>
+</main>
+

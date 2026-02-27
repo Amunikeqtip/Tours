@@ -1,0 +1,66 @@
+<main class="contact-page">
+  <section class="section hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Contact & Support</span>
+      <h1>Need help planning or updating your trip?</h1>
+      <p>
+        Reach our local support team for booking assistance, logistics questions,
+        and custom itinerary guidance for your Zimbabwe adventure.
+      </p>
+      <div class="stats">
+        <article *ngFor="let stat of stats">
+          <h3>{{ stat.value }}</h3>
+          <p>{{ stat.label }}</p>
+        </article>
+      </div>
+    </div>
+
+    <article class="featured-card">
+      <div class="featured-image"></div>
+      <div class="featured-caption">
+        <p>Direct Line</p>
+        <h3>Our specialists are ready to help with your next step.</h3>
+      </div>
+    </article>
+  </section>
+
+  <section class="section channels">
+    <article *ngFor="let channel of channels">
+      <span class="icon"><i [class]="channel.icon"></i></span>
+      <h3>{{ channel.title }}</h3>
+      <h4>{{ channel.detail }}</h4>
+      <p>{{ channel.subtext }}</p>
+    </article>
+  </section>
+
+  <section class="section support-grid">
+    <div class="topics">
+      <h2>How can we support you?</h2>
+      <article *ngFor="let topic of topics">
+        <h3>{{ topic.title }}</h3>
+        <p>{{ topic.description }}</p>
+      </article>
+    </div>
+
+    <form class="contact-form">
+      <h2>Send us a message</h2>
+      <label>
+        Full Name
+        <input type="text" placeholder="Your full name" />
+      </label>
+      <label>
+        Email Address
+        <input type="email" placeholder="you@example.com" />
+      </label>
+      <label>
+        Subject
+        <input type="text" placeholder="How can we help?" />
+      </label>
+      <label>
+        Message
+        <textarea rows="5" placeholder="Share your request details..."></textarea>
+      </label>
+      <button type="button">Send Message</button>
+    </form>
+  </section>
+</main>

@@ -1,0 +1,98 @@
+<main class="game-page">
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">The Great Zimbabwe Wilderness</p>
+      <h1>Untamed <span>Safari</span> Spirits</h1>
+      <p>
+        From thunderous falls to silent predator trails, explore elite game drives
+        through the Zambezi National Park with expert local guides.
+      </p>
+      <div class="hero-actions">
+        <button type="button" class="btn btn-primary">Explore Packages</button>
+        <button type="button" class="btn btn-ghost">View Wildlife Guide</button>
+      </div>
+    </div>
+    <div class="hero-image"></div>
+  </section>
+
+  <section class="filter-bar">
+    <div class="filters">
+      <span><i class="pi pi-filter"></i> Filter Adventures:</span>
+      <button type="button" class="chip chip-active">All</button>
+      <button type="button" class="chip">Family Friendly</button>
+      <button type="button" class="chip">Adrenaline</button>
+      <button type="button" class="chip">Nature</button>
+    </div>
+    <p><i class="pi pi-users"></i> 2.4k+ explorers booked this month</p>
+  </section>
+
+  <section class="content-section">
+    <div class="section-head">
+      <div>
+        <h2>Curated Safari Experiences</h2>
+        <p>Whether you seek high-adrenaline sightings or relaxed family routes, we have a drive for every adventurer.</p>
+      </div>
+      <a href="#">Compare all options <i class="pi pi-arrow-right"></i></a>
+    </div>
+
+    <div class="package-grid">
+      <article class="package-card" *ngFor="let safari of packages">
+        <div class="card-image" [style.background-image]="'url(' + safari.image + ')'">
+          <span class="badge" [ngClass]="safari.badgeClass">{{ safari.badge }}</span>
+        </div>
+        <div class="card-body">
+          <h3>{{ safari.title }}</h3>
+          <p>{{ safari.description }}</p>
+          <p class="meta"><i class="pi pi-clock"></i> {{ safari.meta }} <span><i class="pi pi-car"></i> {{ safari.mode }}</span></p>
+          <ul>
+            <li *ngFor="let feature of safari.features"><i class="pi pi-check-circle"></i> {{ feature }}</li>
+          </ul>
+          <div class="card-footer">
+            <p>FROM <strong>USD {{ safari.price }}</strong></p>
+            <button type="button" class="btn btn-primary btn-small" routerLink="/booking">Book Now</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="animals content-section">
+    <h2>The Inhabitants of Zambezi</h2>
+    <p>Keep your camera ready. These iconic species roam free in Zimbabwe's prime wildlife corridors.</p>
+    <div class="animals-grid">
+      <article class="animal-card" *ngFor="let animal of animals">
+        <img [src]="animal.image" [alt]="animal.name" />
+        <h3>{{ animal.name }}</h3>
+        <span>{{ animal.subtitle }}</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="benefits content-section">
+    <article>
+      <i class="pi pi-compass"></i>
+      <h3>Expert Tracking</h3>
+      <p>Our guides read movement patterns to maximize quality sightings.</p>
+    </article>
+    <article>
+      <i class="pi pi-map"></i>
+      <h3>Exclusive Access</h3>
+      <p>Private game-drive zones away from crowded tourist routes.</p>
+    </article>
+    <article>
+      <i class="pi pi-camera"></i>
+      <h3>Photography Friendly</h3>
+      <p>Positioned vehicles and timings designed for clean wildlife frames.</p>
+    </article>
+  </section>
+
+  <section class="newsletter content-section">
+    <h2>Ready for your wild encounter?</h2>
+    <p>Join our mailing list for exclusive safari offers and wildlife updates.</p>
+    <form>
+      <input type="email" placeholder="Enter your email" />
+      <button type="submit" class="btn btn-primary">Join Adventure</button>
+    </form>
+  </section>
+</main>
+

@@ -1,0 +1,177 @@
+<main class="booking-page">
+  <section class="section booking-layout">
+    <div class="booking-main">
+      <div class="steps">
+        <article class="step" *ngFor="let label of steps; let idx = index"
+          [class.active]="currentStep === idx + 1"
+          [class.complete]="currentStep > idx + 1"
+          (click)="goToStep(idx + 1)">
+          <span>{{ idx + 1 }}</span>
+          <p>{{ label }}</p>
+        </article>
+      </div>
+
+      <section class="panel" *ngIf="currentStep === 1">
+        <h2><i class="pi pi-calendar"></i> Select Date & Time</h2>
+        <div class="calendar-controls">
+          <label>
+            Month
+            <select [(ngModel)]="selectedMonth" (ngModelChange)="onMonthYearChange()">
+              <option *ngFor="let monthName of monthNames; let idx = index" [ngValue]="idx">{{ monthName }}</option>
+            </select>
+          </label>
+          <label>
+            Year
+            <select [(ngModel)]="selectedYear" (ngModelChange)="onMonthYearChange()">
+              <option *ngFor="let year of yearOptions" [ngValue]="year">{{ year }}</option>
+            </select>
+          </label>
+        </div>
+        <div class="days-scroll">
+          <div class="days-grid">
+          <article class="day" *ngFor="let item of days"
+            [class.active]="selectedDate.isoDate === item.isoDate"
+            [class.disabled]="item.disabled"
+            (click)="selectDate(item)">
+            <span>{{ item.day }}</span>
+            <strong>{{ item.date }}</strong>
+            <small>{{ item.month }}</small>
+          </article>
+          </div>
+        </div>
+
+        <h2><i class="pi pi-clock"></i> Select Start Time</h2>
+        <div class="time-grid">
+          <button type="button" class="time" *ngFor="let time of times"
+            [class.active]="selectedTime === time"
+            (click)="selectTime(time)">
+            {{ time }}
+          </button>
+        </div>
+      </section>
+
+      <section class="panel" *ngIf="currentStep === 1">
+        <h2><i class="pi pi-users"></i> Number of Guests</h2>
+        <div class="guests-grid">
+          <article>
+            <h3>Adults</h3>
+            <p>Ages 13+</p>
+            <small>$95 per person</small>
+            <div class="counter">
+              <button type="button" (click)="adjustAdults(-1)">-</button>
+              <strong>{{ adults }}</strong>
+              <button type="button" (click)="adjustAdults(1)">+</button>
+            </div>
+          </article>
+          <article>
+            <h3>Children</h3>
+            <p>Ages 3-12</p>
+            <small>$67 per child</small>
+            <div class="counter">
+              <button type="button" (click)="adjustChildren(-1)">-</button>
+              <strong>{{ children }}</strong>
+              <button type="button" (click)="adjustChildren(1)">+</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" *ngIf="currentStep === 2">
+        <h2><i class="pi pi-user-edit"></i> Passenger Details</h2>
+        <div class="form-grid">
+          <label>
+            Full Name
+            <input type="text" [(ngModel)]="fullName" />
+          </label>
+          <label>
+            Email Address
+            <input type="email" [(ngModel)]="email" />
+          </label>
+          <label>
+            Phone Number
+            <input type="text" [(ngModel)]="phone" />
+          </label>
+          <label>
+            Notes
+            <textarea rows="4" [(ngModel)]="notes"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel" *ngIf="currentStep === 3">
+        <h2><i class="pi pi-credit-card"></i> Payment</h2>
+        <div class="form-grid">
+          <label>
+            Name on Card
+            <input type="text" [(ngModel)]="cardName" />
+          </label>
+          <label>
+            Card Number
+            <input type="text" [(ngModel)]="cardNumber" />
+          </label>
+          <label>
+            Expiry (MM/YY)
+            <input type="text" [(ngModel)]="expiry" />
+          </label>
+          <label>
+            CVV
+            <input type="password" [(ngModel)]="cvv" />
+          </label>
+        </div>
+      </section>
+
+      <section class="panel" *ngIf="currentStep === 4">
+        <h2><i class="pi pi-check-circle"></i> Confirmation</h2>
+        <p class="confirm-text">Your booking has been captured and is ready for final processing.</p>
+        <div class="confirm-grid">
+          <p><span>Date:</span> <strong>{{ selectedDate.day }}, {{ selectedDate.month }} {{ selectedDate.date }}</strong></p>
+          <p><span>Time:</span> <strong>{{ selectedTime }}</strong></p>
+          <p><span>Guests:</span> <strong>{{ guestLabel }}</strong></p>
+          <p><span>Primary Guest:</span> <strong>{{ fullName || 'N/A' }}</strong></p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="prev-btn" (click)="previousStep()" [disabled]="currentStep === 1">Back</button>
+        <button type="button" class="next-btn" *ngIf="currentStep < 4"
+          [disabled]="!canMoveNext" (click)="nextStep()">
+          {{ currentStep === 3 ? 'Review Confirmation' : 'Next Step' }} <i class="pi pi-angle-right"></i>
+        </button>
+        <button type="button" class="next-btn" *ngIf="currentStep === 4" routerLink="/">
+          Finish & Return Home <i class="pi pi-home"></i>
+        </button>
+      </div>
+    </div>
+
+    <aside class="booking-side">
+      <section class="summary-card">
+        <div class="tour-head">
+          <img src="https://source.unsplash.com/200x200/?victoria-falls,aerial" alt="tour preview" />
+          <div>
+            <p>Top Rated Activity</p>
+            <h3>Victoria Falls Guided Tour & Lunch</h3>
+            <span><i class="pi pi-map-marker"></i> Victoria Falls, Zim</span>
+          </div>
+        </div>
+        <div class="tour-meta">
+          <p><span>Date</span> <strong>{{ selectedDate.month }} {{ selectedDate.date }}, {{ selectedDate.day }}</strong></p>
+          <p><span>Guests</span> <strong>{{ guestLabel }}</strong></p>
+          <p><span>Start Time</span> <strong>{{ selectedTime }}</strong></p>
+        </div>
+        <div class="total">
+          <p>Total (USD)</p>
+          <h4>${{ total }}</h4>
+          <small>Subtotal ${{ subtotal }} + fees ${{ bookingFee }}</small>
+        </div>
+      </section>
+
+      <section class="trust-card">
+        <h4>Why Book With Us?</h4>
+        <p><i class="pi pi-check-circle"></i> Free cancellation up to 24h before</p>
+        <p><i class="pi pi-check-circle"></i> Instant booking confirmation</p>
+        <p><i class="pi pi-check-circle"></i> Certified local guides</p>
+        <p><i class="pi pi-check-circle"></i> No hidden booking fees</p>
+      </section>
+    </aside>
+  </section>
+</main>
