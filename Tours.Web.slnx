@@ -3,4 +3,5 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="Tours.Web.Server/Tours.Web.Server.csproj" />
 </Solution>
