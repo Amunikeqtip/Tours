@@ -37,7 +37,7 @@ export class FallsToursPageComponent {
       rating: '4.9',
       description: 'The definitive Victoria Falls experience with expert geology, history, and flora insights.',
       features: ['16 viewpoints', 'Waterproof gear included', 'Rainforest walk', 'Hotel transfers'],
-      image: 'https://source.unsplash.com/900x1200/?victoria-falls,rainbow',
+      image: 'https://images.pexels.com/photos/16241868/pexels-photo-16241868.jpeg?auto=compress&cs=tinysrgb&w=1400',
       price: '30.00'
     },
     {
@@ -47,7 +47,7 @@ export class FallsToursPageComponent {
       rating: '4.9',
       description: 'Witness golden-hour wildlife sightings with premium drinks and curated river routes.',
       features: ['Premium open bar', 'Luxury catamaran', 'Hippos & Crocodiles', 'Bird watching'],
-      image: 'https://source.unsplash.com/900x1200/?zambezi,boat,sunset',
+      image: 'https://images.pexels.com/photos/1430675/pexels-photo-1430675.jpeg?auto=compress&cs=tinysrgb&w=1400',
       price: '55.00'
     },
     {
@@ -57,7 +57,7 @@ export class FallsToursPageComponent {
       rating: '4.9',
       description: 'A rare night-time falls tour timed for lunar spraybows and dramatic mist views.',
       features: ['Full moon exclusive', 'Guided stargazing', 'Night-time park entry', 'Magical atmosphere'],
-      image: 'https://source.unsplash.com/900x1200/?waterfall,night,mist',
+      image: 'https://images.pexels.com/photos/16241868/pexels-photo-16241868.jpeg?auto=compress&cs=tinysrgb&w=1400',
       price: '45.00'
     }
   ];

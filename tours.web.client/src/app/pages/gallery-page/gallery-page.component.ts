@@ -38,11 +38,11 @@ export class GalleryPageComponent {
   ];
 
   readonly images: GalleryImage[] = [
-    { image: 'https://source.unsplash.com/900x700/?mountains,mist,valley', title: 'Misty Highlands' },
-    { image: 'https://source.unsplash.com/900x700/?african,dancers,culture', title: 'Cultural Dancers' },
-    { image: 'https://source.unsplash.com/700x900/?leopard,tree,africa', title: 'Leopard Rest', large: true },
-    { image: 'https://source.unsplash.com/900x700/?lion,savannah,sunset', title: 'Savannah Moment' },
-    { image: 'https://source.unsplash.com/900x700/?canoe,river,group', title: 'River Adventure' },
-    { image: 'https://source.unsplash.com/900x700/?african,textile,pattern', title: 'Craft Textures' }
+    { image: 'https://images.pexels.com/photos/690547/pexels-photo-690547.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Misty Highlands' },
+    { image: 'https://images.pexels.com/photos/4152126/pexels-photo-4152126.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Cultural Dancers' },
+    { image: 'https://images.pexels.com/photos/18253372/pexels-photo-18253372.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Leopard Rest', large: true },
+    { image: 'https://images.pexels.com/photos/31140979/pexels-photo-31140979.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Savannah Moment' },
+    { image: 'https://images.pexels.com/photos/1430675/pexels-photo-1430675.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'River Adventure' },
+    { image: 'https://images.pexels.com/photos/4152126/pexels-photo-4152126.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Craft Textures' }
   ];
 }

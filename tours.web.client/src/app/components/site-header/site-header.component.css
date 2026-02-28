@@ -9,8 +9,8 @@
   gap: 1.1rem;
   justify-content: space-between;
   margin: 1rem auto 0;
-  max-width: 1200px;
-  padding: 0.8rem 1.2rem;
+  max-width: 1360px;
+  padding: 0.8rem 1rem;
   position: sticky;
   top: 0.65rem;
   z-index: 30;
@@ -43,10 +43,13 @@
 }
 
 .main-nav a {
+  align-items: center;
   border-radius: 999px;
   color: #334155;
+  display: inline-flex;
   font-size: 0.9rem;
   font-weight: 600;
+  gap: 0.35rem;
   padding: 0.35rem 0.7rem;
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease;

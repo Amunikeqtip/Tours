@@ -8,8 +8,8 @@
         Your journey to the soul of Africa begins here.
       </p>
       <div class="hero-actions">
-        <a routerLink="/booking" class="btn btn-primary">Book Your Adventure</a>
-        <button type="button" class="btn btn-dark">Watch Video</button>
+        <a routerLink="/packages" class="btn btn-primary">Book Your Adventure</a>
+        <button type="button" class="btn btn-dark" routerLink="/gallery">Watch Video</button>
       </div>
     </div>
   </section>
@@ -27,7 +27,7 @@
           <span class="icon"><i [class]="adventure.icon"></i></span>
           <h3>{{ adventure.title }}</h3>
           <p>{{ adventure.subtitle }}</p>
-          <a routerLink="/game-drives">Explore <i class="pi pi-angle-right"></i></a>
+          <a [routerLink]="adventure.title === 'Game Drives' ? '/game-drives' : (adventure.title === 'Victoria Falls Tours' ? '/falls-tours' : '/activities')">Explore <i class="pi pi-angle-right"></i></a>
         </div>
       </article>
     </div>
@@ -39,7 +39,7 @@
         <h2>Best Value Packages</h2>
         <p>Handpicked experiences with guaranteed lowest prices.</p>
       </div>
-      <button type="button" class="ghost-link">View All Deals</button>
+      <button type="button" class="ghost-link" routerLink="/packages">View All Deals</button>
     </div>
 
     <div class="deals-grid">
@@ -52,7 +52,8 @@
           <h3>{{ deal.title }}</h3>
           <div class="deal-footer">
             <p>From <strong>${{ deal.price }}</strong></p>
-            <button type="button" class="btn btn-small btn-blue" routerLink="/booking">Book Now</button>
+            <button type="button" class="btn btn-small btn-blue" routerLink="/booking"
+              [queryParams]="{ title: deal.title, subtitle: deal.badge + ' Package', duration: deal.duration, image: deal.image, price: deal.price }">Book Now</button>
           </div>
         </div>
       </article>
@@ -61,7 +62,7 @@
 
   <section class="section mission">
     <div class="mission-image">
-      <img src="https://source.unsplash.com/900x1200/?african,guide,portrait" alt="Local guide portrait" />
+      <img src="https://images.pexels.com/photos/34031585/pexels-photo-34031585.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Local guide portrait" />
       <blockquote>
         "The waterfalls belong to the heart of Africa, but the people carry its soul."
         <span>Gill Vaya - Chief Guide</span>
@@ -78,7 +79,7 @@
       <ul>
         <li *ngFor="let point of missionPoints">{{ point }}</li>
       </ul>
-      <button type="button" class="btn btn-dark">Learn About Our Mission</button>
+      <button type="button" class="btn btn-dark" routerLink="/about">Learn About Our Mission</button>
     </div>
   </section>
 
@@ -119,8 +120,8 @@
         <h2>Plan Your Route</h2>
         <p>From the falls to river trails, pick your best expedition and safari routes before arrival.</p>
         <div class="map-actions">
-          <button type="button" class="btn btn-small btn-blue">Open Interactive Map</button>
-          <button type="button" class="btn btn-small btn-light">Navigation Support</button>
+          <button type="button" class="btn btn-small btn-blue" routerLink="/booking">Open Interactive Map</button>
+          <button type="button" class="btn btn-small btn-light" routerLink="/contact-support">Navigation Support</button>
         </div>
       </div>
     </div>
@@ -130,8 +131,8 @@
     <h2>Ready to Hear the Thunder?</h2>
     <p>Join thousands of adventurers who have discovered the magic of Zimbabwe. Secure your 2026/2027 dates now for the best seasonal rates.</p>
     <div class="hero-actions centered-actions">
-      <button type="button" class="btn btn-primary" routerLink="/booking">Book My Trip</button>
-      <button type="button" class="btn btn-light">Contact an Expert</button>
+      <button type="button" class="btn btn-primary" routerLink="/packages">Book My Trip</button>
+      <button type="button" class="btn btn-light" routerLink="/contact-support">Contact an Expert</button>
     </div>
   </section>
 </main>

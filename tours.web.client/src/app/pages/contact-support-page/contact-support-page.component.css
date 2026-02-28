@@ -4,8 +4,8 @@
 
 .section {
   margin: 0 auto;
-  max-width: 1150px;
-  padding: 1.2rem 1rem;
+  max-width: 1320px;
+  padding: 1.2rem 0.65rem;
 }
 
 .hero {
@@ -76,7 +76,7 @@
 }
 
 .featured-image {
-  background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.66)), url('https://source.unsplash.com/1200x900/?travel,team,guide');
+  background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.66)), url('https://images.pexels.com/photos/16241908/pexels-photo-16241908.jpeg?auto=compress&cs=tinysrgb&w=1400');
   background-position: center;
   background-size: cover;
   border-radius: 12px;
@@ -113,7 +113,7 @@
   background: #ffffff;
   border: 1px solid #dde4ee;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1rem 0.65rem;
 }
 
 .icon {

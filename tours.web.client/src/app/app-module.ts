@@ -15,6 +15,7 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { ContactSupportPageComponent } from './pages/contact-support-page/contact-support-page.component';
 import { BookingWorkflowPageComponent } from './pages/booking-workflow-page/booking-workflow-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PackagesPageComponent } from './pages/packages-page/packages-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     AboutPageComponent,
     ContactSupportPageComponent,
     BookingWorkflowPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    PackagesPageComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule,

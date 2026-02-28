@@ -8,8 +8,8 @@
         tours, cruises, and cultural encounters.
       </p>
       <div class="hero-actions">
-        <button type="button" class="btn btn-primary">Plan Your Visit</button>
-        <button type="button" class="btn btn-light">View Gallery</button>
+        <button type="button" class="btn btn-primary" routerLink="/packages" [queryParams]="{ category: 'Falls Tours' }">Plan Your Visit</button>
+        <button type="button" class="btn btn-light" routerLink="/gallery">View Gallery</button>
       </div>
     </div>
     <div class="hero-image"></div>
@@ -42,12 +42,16 @@
           <ul>
             <li *ngFor="let feature of tour.features"><i class="pi pi-check-circle"></i> {{ feature }}</li>
           </ul>
-          <a href="#" class="itinerary">View Tour Itinerary <i class="pi pi-angle-down"></i></a>
+          <a routerLink="/booking"
+            [queryParams]="{ title: tour.title, subtitle: 'Falls Tour', duration: tour.duration, image: tour.image, price: tour.price }"
+            class="itinerary">View Tour Itinerary <i class="pi pi-angle-down"></i></a>
           <div class="tour-footer">
             <p>FROM <strong>${{ tour.price }}</strong></p>
             <div>
-              <button type="button" class="btn btn-outline btn-sm" routerLink="/booking">Inquire</button>
-              <button type="button" class="btn btn-primary btn-sm" routerLink="/booking">Book Now</button>
+              <button type="button" class="btn btn-outline btn-sm" routerLink="/booking"
+                [queryParams]="{ title: tour.title, subtitle: 'Falls Tour', duration: tour.duration, image: tour.image, price: tour.price }">Inquire</button>
+              <button type="button" class="btn btn-primary btn-sm" routerLink="/booking"
+                [queryParams]="{ title: tour.title, subtitle: 'Falls Tour', duration: tour.duration, image: tour.image, price: tour.price }">Book Now</button>
             </div>
           </div>
         </div>
@@ -63,7 +67,7 @@
           <p>{{ feature.subtitle }}</p>
         </article>
         <button type="button" class="btn btn-primary side-btn" routerLink="/booking">Check Availability</button>
-        <button type="button" class="btn btn-light side-btn">Chat with an Expert</button>
+        <button type="button" class="btn btn-light side-btn" routerLink="/contact-support">Chat with an Expert</button>
       </section>
 
       <section class="why-card">
@@ -75,7 +79,7 @@
 
       <section class="download-card">
         <h4>Download our 2024 Safari Guide</h4>
-        <a href="#">View Gallery <i class="pi pi-arrow-right"></i></a>
+        <a routerLink="/gallery">View Gallery <i class="pi pi-arrow-right"></i></a>
       </section>
     </aside>
   </section>
@@ -89,7 +93,7 @@
         <span class="extra-icon"><i [class]="extra.icon"></i></span>
         <h3>{{ extra.title }}</h3>
         <p>{{ extra.subtitle }}</p>
-        <a href="#">Explore Activity <i class="pi pi-angle-right"></i></a>
+        <a routerLink="/activities">Explore Activity <i class="pi pi-angle-right"></i></a>
       </article>
     </div>
   </section>

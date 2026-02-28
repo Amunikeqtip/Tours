@@ -39,19 +39,19 @@ export class HomePageComponent {
   readonly adventures: AdventureCard[] = [
     {
       icon: 'pi pi-car',
-      image: 'https://source.unsplash.com/900x650/?safari,jeep,wildlife',
+      image: 'https://images.pexels.com/photos/4404518/pexels-photo-4404518.jpeg?auto=compress&cs=tinysrgb&w=1200',
       title: 'Game Drives',
       subtitle: 'Track the Big Five in raw bushland routes.'
     },
     {
       icon: 'pi pi-map',
-      image: 'https://source.unsplash.com/900x650/?victoria,falls,waterfall',
+      image: 'https://images.pexels.com/photos/16241868/pexels-photo-16241868.jpeg?auto=compress&cs=tinysrgb&w=1200',
       title: 'Victoria Falls Tours',
       subtitle: 'Go beyond viewpoints with local expert stories.'
     },
     {
       icon: 'pi pi-bolt',
-      image: 'https://source.unsplash.com/900x650/?mountain,hike,adventure',
+      image: 'https://images.pexels.com/photos/23232507/pexels-photo-23232507.jpeg?auto=compress&cs=tinysrgb&w=1200',
       title: 'Adventure Activities',
       subtitle: 'Mix zipline, gorge swings, and scenic trail hikes.'
     }
@@ -62,7 +62,7 @@ export class HomePageComponent {
       badge: 'Top Rated',
       duration: '2 Full Days',
       rating: '4.9 (214)',
-      image: 'https://source.unsplash.com/700x500/?luxury,tent,safari',
+      image: 'https://images.pexels.com/photos/4404518/pexels-photo-4404518.jpeg?auto=compress&cs=tinysrgb&w=900',
       title: 'Luxury Hwange Safari',
       price: '450'
     },
@@ -70,7 +70,7 @@ export class HomePageComponent {
       badge: 'Best Seller',
       duration: '2.5 Hours',
       rating: '4.8 (212)',
-      image: 'https://source.unsplash.com/700x500/?zambezi,river,boat,sunset',
+      image: 'https://images.pexels.com/photos/1430675/pexels-photo-1430675.jpeg?auto=compress&cs=tinysrgb&w=900',
       title: 'Zambezi Sunset Cruise',
       price: '85'
     },
@@ -78,7 +78,7 @@ export class HomePageComponent {
       badge: 'Adventure',
       duration: '2 Hours',
       rating: '5.0 (98)',
-      image: 'https://source.unsplash.com/700x500/?cultural,dance,africa',
+      image: 'https://images.pexels.com/photos/16241868/pexels-photo-16241868.jpeg?auto=compress&cs=tinysrgb&w=900',
       title: 'Devils Pool Experience',
       price: '110'
     },
@@ -86,7 +86,7 @@ export class HomePageComponent {
       badge: 'Family',
       duration: '3 Half Days',
       rating: '4.7 (251)',
-      image: 'https://source.unsplash.com/700x500/?elephant,river,africa',
+      image: 'https://images.pexels.com/photos/3850526/pexels-photo-3850526.jpeg?auto=compress&cs=tinysrgb&w=900',
       title: 'Elephant Interaction',
       price: '150'
     }
@@ -104,13 +104,13 @@ export class HomePageComponent {
       quote: 'The most authentic experience of my life. The falls are majestic, but our guides made it personal.',
       author: 'Sarah Jenkins',
       location: 'London, UK',
-      image: 'https://source.unsplash.com/80x80/?woman,portrait,smile'
+      image: 'https://images.pexels.com/photos/34031585/pexels-photo-34031585.jpeg?auto=compress&cs=tinysrgb&w=160'
     },
     {
       quote: 'Seamless booking and incredible attention to detail. The safari was exactly as described.',
       author: 'Marco Rossi',
       location: 'Milan, Italy',
-      image: 'https://source.unsplash.com/80x80/?man,portrait,smile'
+      image: 'https://images.pexels.com/photos/12775213/pexels-photo-12775213.jpeg?auto=compress&cs=tinysrgb&w=160'
     }
   ];
 

@@ -1,0 +1,141 @@
+<main class="packages-page">
+  <section class="section hero">
+    <div>
+      <p class="eyebrow">One Place For Every Journey</p>
+      <h1>Explore All <span>Adventure Packages</span></h1>
+      <p>Search, compare, and book Victoria Falls experiences from one modern catalog. Filter by category, sort by budget, and open full package details before booking.</p>
+    </div>
+    <div class="hero-stats">
+      <article>
+        <h3>{{ packages.length }}</h3>
+        <p>Curated Packages</p>
+      </article>
+      <article>
+        <h3>4.8+</h3>
+        <p>Average Rating</p>
+      </article>
+      <article>
+        <h3>24/7</h3>
+        <p>Booking Support</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section controls">
+    <label class="search-box">
+      <i class="pi pi-search"></i>
+      <input type="search" [(ngModel)]="searchTerm" placeholder="Search packages, places, or experiences" />
+    </label>
+
+    <label class="sort-box">
+      Sort by
+      <select [(ngModel)]="sortBy">
+        <option value="featured">Featured</option>
+        <option value="rating">Rating</option>
+        <option value="priceAsc">Price: Low to High</option>
+        <option value="priceDesc">Price: High to Low</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="section categories">
+    <button type="button" *ngFor="let category of categories" [class.active]="selectedCategory === category" (click)="selectedCategory = category">
+      {{ category }}
+    </button>
+  </section>
+
+  <section class="section grid-wrap">
+    <article class="pkg-card" *ngFor="let pkg of filteredPackages">
+      <div class="pkg-image" [style.background-image]="'url(' + pkg.image + ')'">
+        <span>{{ pkg.category }}</span>
+      </div>
+
+      <div class="pkg-body">
+        <div class="title-row">
+          <h3>{{ pkg.title }}</h3>
+          <strong>${{ pkg.price }}</strong>
+        </div>
+        <p class="subtitle">{{ pkg.subtitle }}</p>
+        <p class="meta">
+          <span><i class="pi pi-map-marker"></i> {{ pkg.location }}</span>
+          <span><i class="pi pi-clock"></i> {{ pkg.duration }}</span>
+          <span><i class="pi pi-star-fill"></i> {{ pkg.rating }} ({{ pkg.reviews }})</span>
+        </p>
+
+        <div class="actions">
+          <button type="button" class="btn btn-ghost" (click)="openPackage(pkg)" title="View package details">
+            <i class="pi pi-eye"></i> View
+          </button>
+          <button type="button" class="btn btn-primary" routerLink="/booking"
+            [queryParams]="{ title: pkg.title, subtitle: pkg.category + ' Package', duration: pkg.duration, image: pkg.image, price: pkg.price }">
+            Book Now
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <p class="empty" *ngIf="filteredPackages.length === 0">No packages matched your search. Try another keyword or category.</p>
+  </section>
+
+  <section class="detail-modal" *ngIf="selectedPackage">
+    <div class="overlay" (click)="closePackage()"></div>
+
+    <article class="detail-card">
+      <button type="button" class="close-btn" (click)="closePackage()"><i class="pi pi-times"></i></button>
+
+      <div class="detail-hero">
+        <div class="detail-image" [style.background-image]="'url(' + selectedPackage.image + ')'">
+          <span>{{ selectedPackage.category }}</span>
+        </div>
+        <div class="detail-copy">
+          <p class="eyebrow">Full Package Details</p>
+          <h2>{{ selectedPackage.title }}</h2>
+          <p>{{ selectedPackage.summary }}</p>
+          <div class="detail-meta">
+            <span><i class="pi pi-map-marker"></i> {{ selectedPackage.location }}</span>
+            <span><i class="pi pi-clock"></i> {{ selectedPackage.duration }}</span>
+            <span><i class="pi pi-chart-line"></i> {{ selectedPackage.difficulty }}</span>
+          </div>
+          <div class="detail-cta">
+            <button type="button" class="btn btn-primary" routerLink="/booking"
+              [queryParams]="{ title: selectedPackage.title, subtitle: selectedPackage.category + ' Package', duration: selectedPackage.duration, image: selectedPackage.image, price: selectedPackage.price }">
+              Continue To Booking
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <section>
+          <h3>Highlights</h3>
+          <ul>
+            <li *ngFor="let h of selectedPackage.highlights"><i class="pi pi-check-circle"></i> {{ h }}</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>What Is Included</h3>
+          <ul>
+            <li *ngFor="let inc of selectedPackage.includes"><i class="pi pi-check"></i> {{ inc }}</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="itinerary">
+        <h3>Detailed Itinerary</h3>
+        <article *ngFor="let stop of selectedPackage.itinerary">
+          <span>{{ stop.time }}</span>
+          <div>
+            <h4>{{ stop.title }}</h4>
+            <p>{{ stop.detail }}</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="policy">
+        <h3>Cancellation & Flexibility</h3>
+        <p>{{ selectedPackage.cancellation }}</p>
+      </section>
+    </article>
+  </section>
+</main>

@@ -25,11 +25,13 @@ interface Animal {
   standalone: false
 })
 export class GameDrivesPageComponent {
+  activeFilter: 'All' | 'Family Friendly' | 'Adrenaline' | 'Nature' = 'All';
+
   readonly packages: DrivePackage[] = [
     {
       badge: 'Nature',
       badgeClass: 'nature',
-      image: 'https://source.unsplash.com/900x650/?lion,savannah',
+      image: 'https://images.pexels.com/photos/31140979/pexels-photo-31140979.jpeg?auto=compress&cs=tinysrgb&w=1400',
       title: 'Dawn Patrol: Sunrise Game Drive',
       description: 'Witness the savannah wake up with elite trackers and open-sky viewpoints.',
       meta: '4 Hours',
@@ -40,7 +42,7 @@ export class GameDrivesPageComponent {
     {
       badge: 'Adrenaline',
       badgeClass: 'adrenaline',
-      image: 'https://source.unsplash.com/900x650/?safari,group,walking',
+      image: 'https://images.pexels.com/photos/16533214/pexels-photo-16533214.jpeg?auto=compress&cs=tinysrgb&w=1400',
       title: 'Walking Safari: The Wild Unfiltered',
       description: 'Step deeper into rhino territory with armed guides and raw trail routes.',
       meta: '3 Hours',
@@ -51,7 +53,7 @@ export class GameDrivesPageComponent {
     {
       badge: 'Family Friendly',
       badgeClass: 'family',
-      image: 'https://source.unsplash.com/900x650/?family,safari,jeep',
+      image: 'https://images.pexels.com/photos/2356059/pexels-photo-2356059.jpeg?auto=compress&cs=tinysrgb&w=1400',
       title: 'Family Explorer: Private Afternoon Drive',
       description: 'Comfort-first safari for families with flexible stops and kid-friendly moments.',
       meta: 'Full Day',
@@ -62,7 +64,7 @@ export class GameDrivesPageComponent {
     {
       badge: 'Nature',
       badgeClass: 'nature',
-      image: 'https://source.unsplash.com/900x650/?leopard,wild,tree',
+      image: 'https://images.pexels.com/photos/18253372/pexels-photo-18253372.jpeg?auto=compress&cs=tinysrgb&w=1400',
       title: 'Night Owl: Nocturnal Adventure',
       description: 'Infrared spotlights reveal predators and hidden species after sunset.',
       meta: '3 Hours',
@@ -73,7 +75,7 @@ export class GameDrivesPageComponent {
     {
       badge: 'Nature',
       badgeClass: 'nature',
-      image: 'https://source.unsplash.com/900x650/?elephants,river,africa',
+      image: 'https://images.pexels.com/photos/1430675/pexels-photo-1430675.jpeg?auto=compress&cs=tinysrgb&w=1400',
       title: 'Zambezi River Basin Safari',
       description: 'Cruise edge-water channels where elephant herds gather in golden light.',
       meta: '6 Hours',
@@ -84,7 +86,7 @@ export class GameDrivesPageComponent {
     {
       badge: 'Adrenaline',
       badgeClass: 'adrenaline',
-      image: 'https://source.unsplash.com/900x650/?rhino,safari,sunset',
+      image: 'https://images.pexels.com/photos/4404518/pexels-photo-4404518.jpeg?auto=compress&cs=tinysrgb&w=1400',
       title: 'The Big Five Intensive',
       description: 'Extended route crafted for serious wildlife photographers and spotters.',
       meta: '10 Hours',
@@ -95,11 +97,22 @@ export class GameDrivesPageComponent {
   ];
 
   readonly animals: Animal[] = [
-    { name: 'Lion', subtitle: 'King of Africa', image: 'https://source.unsplash.com/320x320/?lion,portrait' },
-    { name: 'Elephant', subtitle: 'Gentle Giant', image: 'https://source.unsplash.com/320x320/?elephant,portrait' },
-    { name: 'Leopard', subtitle: 'Ghost of the Bush', image: 'https://source.unsplash.com/320x320/?leopard,portrait' },
-    { name: 'Buffalo', subtitle: 'Black Giant', image: 'https://source.unsplash.com/320x320/?buffalo,africa' },
-    { name: 'Rhino', subtitle: 'Armored Legend', image: 'https://source.unsplash.com/320x320/?rhinoceros,portrait' },
-    { name: 'Giraffe', subtitle: 'Skyline Scout', image: 'https://source.unsplash.com/320x320/?giraffe,portrait' }
+    { name: 'Lion', subtitle: 'King of Africa', image: 'https://images.pexels.com/photos/31140979/pexels-photo-31140979.jpeg?auto=compress&cs=tinysrgb&w=900' },
+    { name: 'Elephant', subtitle: 'Gentle Giant', image: 'https://images.pexels.com/photos/3850526/pexels-photo-3850526.jpeg?auto=compress&cs=tinysrgb&w=900' },
+    { name: 'Leopard', subtitle: 'Ghost of the Bush', image: 'https://images.pexels.com/photos/18253372/pexels-photo-18253372.jpeg?auto=compress&cs=tinysrgb&w=900' },
+    { name: 'Buffalo', subtitle: 'Black Giant', image: 'https://images.pexels.com/photos/5127846/pexels-photo-5127846.jpeg?auto=compress&cs=tinysrgb&w=900' },
+    { name: 'Rhino', subtitle: 'Armored Legend', image: 'https://images.pexels.com/photos/16533214/pexels-photo-16533214.jpeg?auto=compress&cs=tinysrgb&w=900' },
+    { name: 'Giraffe', subtitle: 'Skyline Scout', image: 'https://images.pexels.com/photos/1319515/pexels-photo-1319515.jpeg?auto=compress&cs=tinysrgb&w=900' }
   ];
+
+  get filteredPackages(): DrivePackage[] {
+    if (this.activeFilter === 'All') {
+      return this.packages;
+    }
+    return this.packages.filter((item) => item.badge === this.activeFilter);
+  }
+
+  setFilter(filter: 'All' | 'Family Friendly' | 'Adrenaline' | 'Nature'): void {
+    this.activeFilter = filter;
+  }
 }

@@ -1,0 +1,9 @@
+{
+  "Bokun": {
+    "BaseUrl": "https://api.bokun.io",
+    "AccessKey": "PUT_NEW_ACCESS_KEY_HERE",
+    "SecretKey": "PUT_NEW_SECRET_KEY_HERE",
+    "OctoToken": "PUT_NEW_OCTO_TOKEN_HERE",
+    "UseSandbox": true
+  }
+}

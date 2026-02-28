@@ -6,12 +6,12 @@
 
 .section {
   margin: 0 auto;
-  max-width: 1120px;
-  padding: 3.2rem 1rem;
+  max-width: 1320px;
+  padding: 3.2rem 0.65rem;
 }
 
 .hero {
-  background-image: url('https://source.unsplash.com/1800x900/?victoria-falls,waterfall,zimbabwe');
+  background-image: url('https://images.pexels.com/photos/27878405/pexels-photo-27878405.jpeg?auto=compress&cs=tinysrgb&w=1800');
   background-position: center;
   background-size: cover;
   min-height: 540px;
@@ -149,7 +149,7 @@
   bottom: 0;
   color: #ffffff;
   left: 0;
-  padding: 1rem;
+  padding: 1rem 0.65rem;
   position: absolute;
   right: 0;
   z-index: 1;
@@ -419,7 +419,7 @@
 }
 
 .map-card {
-  background-image: url('https://source.unsplash.com/1800x900/?topographic,map,river');
+  background-image: url('https://images.pexels.com/photos/3378996/pexels-photo-3378996.jpeg?cs=srgb&dl=pexels-the-trvlr-3378996.jpg&fm=jpg');
   background-position: center;
   background-size: cover;
   border-radius: 10px;

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 interface DayOption {
   day: string;
@@ -22,9 +23,9 @@ interface ItineraryItem {
 })
 export class BookingWorkflowPageComponent {
   readonly steps = ['Activity', 'Selection', 'Details', 'Payment', 'Confirmation'];
-  readonly adultPrice = 95;
-  readonly childPrice = 67;
-  readonly activity = {
+  adultPrice = 95;
+  childPrice = 67;
+  activity = {
     title: 'Victoria Falls Guided Tour & Lunch',
     subtitle: 'Top Rated Activity',
     location: 'Victoria Falls, Zim',
@@ -35,9 +36,9 @@ export class BookingWorkflowPageComponent {
       'Explore rainforest viewpoints with expert local guides, then enjoy a curated lunch overlooking the gorge. This experience is designed for first-time and returning travelers who want a complete Falls introduction.',
     includes: ['Licensed local guide', 'Hotel pickup and drop-off', 'Entry coordination support', 'Lunch included'],
     gallery: [
-      'https://source.unsplash.com/1200x700/?victoria-falls,aerial',
-      'https://source.unsplash.com/800x500/?waterfall,rainforest',
-      'https://source.unsplash.com/800x500/?zimbabwe,river,viewpoint'
+      'https://images.pexels.com/photos/27878405/pexels-photo-27878405.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      'https://images.pexels.com/photos/16241868/pexels-photo-16241868.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      'https://images.pexels.com/photos/30172599/pexels-photo-30172599.jpeg?auto=compress&cs=tinysrgb&w=1400'
     ]
   };
   readonly itinerary: ItineraryItem[] = [
@@ -88,8 +89,31 @@ export class BookingWorkflowPageComponent {
   expiry = '';
   cvv = '';
 
-  constructor() {
+  constructor(private readonly route: ActivatedRoute) {
     this.refreshCalendar();
+    this.route.queryParamMap.subscribe((params) => {
+      const title = params.get('title')?.trim();
+      const subtitle = params.get('subtitle')?.trim();
+      const duration = params.get('duration')?.trim();
+      const image = params.get('image')?.trim();
+      const priceRaw = params.get('price')?.trim();
+
+      this.activity = {
+        ...this.activity,
+        title: title || this.activity.title,
+        subtitle: subtitle || this.activity.subtitle,
+        duration: duration || this.activity.duration,
+        gallery: image
+          ? [image, this.activity.gallery[1], this.activity.gallery[2]]
+          : this.activity.gallery
+      };
+
+      const parsed = Number(priceRaw);
+      if (!Number.isNaN(parsed) && parsed > 0) {
+        this.adultPrice = parsed;
+        this.childPrice = Math.max(1, Math.round(parsed * 0.7));
+      }
+    });
   }
 
   get guestLabel(): string {

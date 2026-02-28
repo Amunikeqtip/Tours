@@ -36,11 +36,11 @@ export class AboutPageComponent {
   ];
 
   readonly moments: AboutMoment[] = [
-    { image: 'https://source.unsplash.com/900x700/?victoria-falls,mist', title: 'The Falls at Dawn' },
-    { image: 'https://source.unsplash.com/900x700/?safari,guide,group', title: 'Guides in the Field' },
-    { image: 'https://source.unsplash.com/700x900/?african,wildlife,leopard', title: 'Wildlife Encounters', large: true },
-    { image: 'https://source.unsplash.com/900x700/?zambezi,boat,cruise', title: 'River Routes' },
-    { image: 'https://source.unsplash.com/900x700/?african,culture,dance', title: 'Living Culture' },
-    { image: 'https://source.unsplash.com/900x700/?african,campfire,safari', title: 'Evening Storytelling' }
+    { image: 'https://images.pexels.com/photos/16241868/pexels-photo-16241868.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'The Falls at Dawn' },
+    { image: 'https://images.pexels.com/photos/16241908/pexels-photo-16241908.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Guides in the Field' },
+    { image: 'https://images.pexels.com/photos/31140979/pexels-photo-31140979.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Wildlife Encounters', large: true },
+    { image: 'https://images.pexels.com/photos/1430675/pexels-photo-1430675.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'River Routes' },
+    { image: 'https://images.pexels.com/photos/4152126/pexels-photo-4152126.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Living Culture' },
+    { image: 'https://images.pexels.com/photos/102129/pexels-photo-102129.jpeg?auto=compress&cs=tinysrgb&w=1400', title: 'Evening Storytelling' }
   ];
 }

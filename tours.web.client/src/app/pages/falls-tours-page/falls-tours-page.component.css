@@ -44,7 +44,7 @@
 }
 
 .hero-image {
-  background-image: linear-gradient(90deg, rgba(223, 231, 239, 0.95), rgba(223, 231, 239, 0.2)), url('https://source.unsplash.com/1400x1000/?city,harbor,skyline');
+  background-image: linear-gradient(90deg, rgba(223, 231, 239, 0.95), rgba(223, 231, 239, 0.2)), url('https://images.pexels.com/photos/27878405/pexels-photo-27878405.jpeg?auto=compress&cs=tinysrgb&w=1400');
   background-position: center;
   background-size: cover;
 }
@@ -87,8 +87,8 @@
 
 .section {
   margin: 0 auto;
-  max-width: 1150px;
-  padding: 2.4rem 1rem;
+  max-width: 1320px;
+  padding: 2.4rem 0.65rem;
 }
 
 .tours {
@@ -241,7 +241,7 @@
   border: 1px solid #dce3ec;
   border-radius: 12px;
   margin-bottom: 0.85rem;
-  padding: 1rem;
+  padding: 1rem 0.65rem;
 }
 
 .assist-card {
@@ -290,7 +290,7 @@
 }
 
 .download-card {
-  background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.8)), url('https://source.unsplash.com/900x500/?zambezi,sunset');
+  background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.8)), url('https://images.pexels.com/photos/1430675/pexels-photo-1430675.jpeg?auto=compress&cs=tinysrgb&w=1400');
   background-position: center;
   background-size: cover;
   border-radius: 12px;

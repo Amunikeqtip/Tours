@@ -8,6 +8,7 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { ContactSupportPageComponent } from './pages/contact-support-page/contact-support-page.component';
 import { BookingWorkflowPageComponent } from './pages/booking-workflow-page/booking-workflow-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PackagesPageComponent } from './pages/packages-page/packages-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryPageComponent },
   { path: 'about', component: AboutPageComponent },
   { path: 'contact-support', component: ContactSupportPageComponent },
+  { path: 'packages', component: PackagesPageComponent },
   { path: 'booking', component: BookingWorkflowPageComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

@@ -3,12 +3,12 @@
   border-top: 1px solid #dce5f0;
   color: #0f172a;
   margin-top: 1.2rem;
-  padding: 2.2rem 1.1rem 1rem;
+  padding: 2.2rem 0.65rem 1rem;
 }
 
 .footer-shell {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1360px;
 }
 
 .footer-grid {
@@ -67,9 +67,10 @@
   width: 30px;
 }
 
-.social-chip i {
-  font-size: 1.08rem;
-  line-height: 1;
+.social-chip svg {
+  fill: currentColor;
+  height: 14px;
+  width: 14px;
 }
 
 .social-chip:hover {

@@ -8,8 +8,8 @@
         through the Zambezi National Park with expert local guides.
       </p>
       <div class="hero-actions">
-        <button type="button" class="btn btn-primary">Explore Packages</button>
-        <button type="button" class="btn btn-ghost">View Wildlife Guide</button>
+        <button type="button" class="btn btn-primary" routerLink="/packages" [queryParams]="{ category: 'Game Drives' }">Explore Packages</button>
+        <button type="button" class="btn btn-ghost" routerLink="/gallery">View Wildlife Guide</button>
       </div>
     </div>
     <div class="hero-image"></div>
@@ -18,10 +18,10 @@
   <section class="filter-bar">
     <div class="filters">
       <span><i class="pi pi-filter"></i> Filter Adventures:</span>
-      <button type="button" class="chip chip-active">All</button>
-      <button type="button" class="chip">Family Friendly</button>
-      <button type="button" class="chip">Adrenaline</button>
-      <button type="button" class="chip">Nature</button>
+      <button type="button" class="chip" [class.chip-active]="activeFilter === 'All'" (click)="setFilter('All')">All</button>
+      <button type="button" class="chip" [class.chip-active]="activeFilter === 'Family Friendly'" (click)="setFilter('Family Friendly')">Family Friendly</button>
+      <button type="button" class="chip" [class.chip-active]="activeFilter === 'Adrenaline'" (click)="setFilter('Adrenaline')">Adrenaline</button>
+      <button type="button" class="chip" [class.chip-active]="activeFilter === 'Nature'" (click)="setFilter('Nature')">Nature</button>
     </div>
     <p><i class="pi pi-users"></i> 2.4k+ explorers booked this month</p>
   </section>
@@ -32,11 +32,11 @@
         <h2>Curated Safari Experiences</h2>
         <p>Whether you seek high-adrenaline sightings or relaxed family routes, we have a drive for every adventurer.</p>
       </div>
-      <a href="#">Compare all options <i class="pi pi-arrow-right"></i></a>
+      <a routerLink="/activities">Compare all options <i class="pi pi-arrow-right"></i></a>
     </div>
 
     <div class="package-grid">
-      <article class="package-card" *ngFor="let safari of packages">
+      <article class="package-card" *ngFor="let safari of filteredPackages">
         <div class="card-image" [style.background-image]="'url(' + safari.image + ')'">
           <span class="badge" [ngClass]="safari.badgeClass">{{ safari.badge }}</span>
         </div>
@@ -49,7 +49,8 @@
           </ul>
           <div class="card-footer">
             <p>FROM <strong>USD {{ safari.price }}</strong></p>
-            <button type="button" class="btn btn-primary btn-small" routerLink="/booking">Book Now</button>
+            <button type="button" class="btn btn-primary btn-small" routerLink="/booking"
+              [queryParams]="{ title: safari.title, subtitle: 'Game Drive', duration: safari.meta, image: safari.image, price: safari.price }">Book Now</button>
           </div>
         </div>
       </article>
@@ -89,7 +90,7 @@
   <section class="newsletter content-section">
     <h2>Ready for your wild encounter?</h2>
     <p>Join our mailing list for exclusive safari offers and wildlife updates.</p>
-    <form>
+    <form (submit)="$event.preventDefault()">
       <input type="email" placeholder="Enter your email" />
       <button type="submit" class="btn btn-primary">Join Adventure</button>
     </form>
