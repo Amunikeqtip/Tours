@@ -70,7 +70,7 @@
             <i class="pi pi-eye"></i> View
           </button>
           <button type="button" class="btn btn-primary" routerLink="/booking"
-            [queryParams]="{ title: pkg.title, subtitle: pkg.category + ' Package', duration: pkg.duration, image: pkg.image, price: pkg.price }">
+            [queryParams]="{ pkgId: pkg.id, title: pkg.title, subtitle: pkg.category + ' Package', duration: pkg.duration, image: pkg.image, price: pkg.price }">
             Book Now
           </button>
         </div>
@@ -101,11 +101,16 @@
           </div>
           <div class="detail-cta">
             <button type="button" class="btn btn-primary" routerLink="/booking"
-              [queryParams]="{ title: selectedPackage.title, subtitle: selectedPackage.category + ' Package', duration: selectedPackage.duration, image: selectedPackage.image, price: selectedPackage.price }">
+              [queryParams]="{ pkgId: selectedPackage.id, title: selectedPackage.title, subtitle: selectedPackage.category + ' Package', duration: selectedPackage.duration, image: selectedPackage.image, price: selectedPackage.price }">
               Continue To Booking
             </button>
           </div>
         </div>
+      </div>
+      <p class="detail-loading" *ngIf="isDetailLoading">Loading live package details...</p>
+
+      <div class="gallery-strip" *ngIf="selectedPackage.gallery?.length">
+        <img *ngFor="let photo of selectedPackage.gallery" [src]="photo" alt="Package gallery image" />
       </div>
 
       <div class="detail-grid">
@@ -133,6 +138,16 @@
             <p>{{ stop.detail }}</p>
           </div>
         </article>
+      </section>
+
+      <section class="policy" *ngIf="selectedPackage.requirements">
+        <h3>Requirements</h3>
+        <p>{{ selectedPackage.requirements }}</p>
+      </section>
+
+      <section class="policy" *ngIf="selectedPackage.attention">
+        <h3>Important Notes</h3>
+        <p>{{ selectedPackage.attention }}</p>
       </section>
 
       <section class="policy">

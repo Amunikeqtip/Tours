@@ -26,6 +26,9 @@ interface TravelPackage {
   includes: string[];
   itinerary: PackageItineraryItem[];
   cancellation: string;
+  requirements?: string;
+  attention?: string;
+  gallery?: string[];
 }
 
 interface BokunPackageApi {
@@ -37,6 +40,28 @@ interface BokunPackageApi {
   rating: number;
   imageUrl: string;
   summary: string;
+}
+
+interface BokunPackageDetailApi {
+  id: string;
+  title: string;
+  category: string;
+  duration: string;
+  priceFrom: number;
+  rating: number;
+  reviewCount: number;
+  difficulty: string;
+  location: string;
+  summary: string;
+  description: string;
+  included: string;
+  requirements: string;
+  attention: string;
+  cancellationPolicy: string;
+  highlights: string[];
+  includes: string[];
+  itinerary: { time: string; title: string; detail: string }[];
+  gallery: string[];
 }
 
 @Component({
@@ -53,6 +78,7 @@ export class PackagesPageComponent implements OnInit {
   sortBy: 'featured' | 'priceAsc' | 'priceDesc' | 'rating' = 'featured';
   selectedPackage: TravelPackage | null = null;
   isLoading = false;
+  isDetailLoading = false;
   errorMessage = '';
   private requestedPackageId = '';
 
@@ -111,6 +137,38 @@ export class PackagesPageComponent implements OnInit {
 
   openPackage(item: TravelPackage): void {
     this.selectedPackage = item;
+    this.isDetailLoading = true;
+    this.http.get<BokunPackageDetailApi>(`${environment.apiBaseUrl}/bokun/packages/${encodeURIComponent(item.id)}`).subscribe({
+      next: (detail) => {
+        if (!this.selectedPackage || this.selectedPackage.id !== item.id) {
+          return;
+        }
+        this.selectedPackage = {
+          ...this.selectedPackage,
+          category: detail.category || this.selectedPackage.category,
+          location: detail.location || this.selectedPackage.location,
+          duration: detail.duration || this.selectedPackage.duration,
+          difficulty: this.normalizeDifficulty(detail.difficulty || this.selectedPackage.difficulty),
+          rating: detail.rating > 0 ? detail.rating : this.selectedPackage.rating,
+          reviews: detail.reviewCount > 0 ? detail.reviewCount : this.selectedPackage.reviews,
+          price: detail.priceFrom > 0 ? detail.priceFrom : this.selectedPackage.price,
+          summary: detail.summary || detail.description || this.selectedPackage.summary,
+          subtitle: detail.summary || this.selectedPackage.subtitle,
+          highlights: detail.highlights?.length ? detail.highlights : this.selectedPackage.highlights,
+          includes: detail.includes?.length ? detail.includes : this.selectedPackage.includes,
+          itinerary: detail.itinerary?.length ? detail.itinerary : this.selectedPackage.itinerary,
+          cancellation: detail.cancellationPolicy || this.selectedPackage.cancellation,
+          requirements: detail.requirements || this.selectedPackage.requirements || '',
+          attention: detail.attention || this.selectedPackage.attention || '',
+          image: detail.gallery?.[0] || this.selectedPackage.image,
+          gallery: detail.gallery?.length ? detail.gallery : (this.selectedPackage.gallery ?? [this.selectedPackage.image])
+        };
+        this.isDetailLoading = false;
+      },
+      error: () => {
+        this.isDetailLoading = false;
+      }
+    });
   }
 
   closePackage(): void {
@@ -143,7 +201,11 @@ export class PackagesPageComponent implements OnInit {
       return;
     }
     const found = this.packages.find((item) => item.id === this.requestedPackageId);
-    this.selectedPackage = found ?? null;
+    if (found) {
+      this.openPackage(found);
+      return;
+    }
+    this.selectedPackage = null;
   }
 
   private mapApiPackage(item: BokunPackageApi, index: number): TravelPackage {
@@ -175,7 +237,18 @@ export class PackagesPageComponent implements OnInit {
         { time: '09:15', title: 'Main experience', detail: 'Enjoy the core highlights of this package with guided assistance.' },
         { time: '11:30', title: 'Wrap-up', detail: 'Final photo moments, summary, and onward support.' }
       ],
-      cancellation: 'Cancellation policy depends on the operator and schedule. Final terms are shown at booking confirmation.'
+      cancellation: 'Cancellation policy depends on the operator and schedule. Final terms are shown at booking confirmation.',
+      requirements: '',
+      attention: '',
+      gallery: [item.imageUrl?.trim() || 'https://images.pexels.com/photos/27878405/pexels-photo-27878405.jpeg?auto=compress&cs=tinysrgb&w=1400']
     };
+  }
+
+  private normalizeDifficulty(value: string): string {
+    const clean = value.trim().toUpperCase();
+    if (clean === 'EASY') return 'Easy';
+    if (clean === 'MODERATE') return 'Moderate';
+    if (clean === 'HARD' || clean === 'DIFFICULT') return 'Hard';
+    return value;
   }
 }

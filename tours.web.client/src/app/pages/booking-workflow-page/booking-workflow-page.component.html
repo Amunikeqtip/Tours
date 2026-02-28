@@ -13,12 +13,14 @@
 
       <section class="panel activity-panel" *ngIf="currentStep === 1">
         <h2><i class="pi pi-info-circle"></i> Activity Details</h2>
+        <p class="meta" *ngIf="bookingError"><i class="pi pi-exclamation-triangle"></i> {{ bookingError }}</p>
         <div class="activity-top">
           <div class="activity-main-image" [style.background-image]="'url(' + activity.gallery[0] + ')'"></div>
           <div class="activity-info">
             <p class="badge">{{ activity.subtitle }}</p>
             <h3>{{ activity.title }}</h3>
             <p class="meta"><i class="pi pi-map-marker"></i> {{ activity.location }} <span><i class="pi pi-clock"></i> {{ activity.duration }}</span> <span><i class="pi pi-star-fill"></i> {{ activity.rating }} ({{ activity.reviews }})</span></p>
+            <p class="meta" *ngIf="isActivityLoading"><i class="pi pi-spin pi-spinner"></i> Loading live package details...</p>
             <p class="overview">{{ activity.overview }}</p>
             <div class="includes">
               <h4>Included</h4>
@@ -46,6 +48,7 @@
 
       <section class="panel" *ngIf="currentStep === 2">
         <h2><i class="pi pi-calendar"></i> Select Date & Time</h2>
+        <p class="meta" *ngIf="isAvailabilityLoading"><i class="pi pi-spin pi-spinner"></i> Loading live availability...</p>
         <div class="calendar-controls">
           <label>
             Month
@@ -82,7 +85,10 @@
               {{ time }}
             </button>
           </div>
-          <label class="custom-time">
+          <label class="custom-time" *ngIf="!isAvailabilityLoading && !selectedAvailabilitySlot && !timeOptions.length">
+            No live slots found in this month. Try another month.
+          </label>
+          <label class="custom-time" *ngIf="!bokunPackageId">
             Pick exact time
             <input type="time" [ngModel]="selectedTimeInput" (ngModelChange)="onTimeInputChange($event)" />
           </label>
@@ -96,7 +102,7 @@
           <article>
             <h3>Adults</h3>
             <p>Ages 13+</p>
-            <small>$95 per person</small>
+            <small>${{ adultPrice }} per person</small>
             <div class="counter">
               <button type="button" (click)="adjustAdults(-1)">-</button>
               <strong>{{ adults }}</strong>
@@ -106,7 +112,7 @@
           <article>
             <h3>Children</h3>
             <p>Ages 3-12</p>
-            <small>$67 per child</small>
+            <small>${{ childPrice }} per child</small>
             <div class="counter">
               <button type="button" (click)="adjustChildren(-1)">-</button>
               <strong>{{ children }}</strong>
@@ -118,6 +124,7 @@
 
       <section class="panel" *ngIf="currentStep === 3">
         <h2><i class="pi pi-user-edit"></i> Passenger Details</h2>
+        <p class="meta" *ngIf="checkoutMessage">{{ checkoutMessage }}</p>
         <div class="form-grid">
           <label>
             Full Name
@@ -132,6 +139,14 @@
             <input type="text" [(ngModel)]="phone" />
           </label>
           <label>
+            Personal ID / Passport
+            <input type="text" [(ngModel)]="personalIdNumber" />
+          </label>
+          <label>
+            Nationality (2-letter code)
+            <input type="text" [(ngModel)]="nationality" placeholder="ZW" />
+          </label>
+          <label>
             Notes
             <textarea rows="4" [(ngModel)]="notes"></textarea>
           </label>
@@ -140,6 +155,22 @@
 
       <section class="panel" *ngIf="currentStep === 4">
         <h2><i class="pi pi-credit-card"></i> Payment</h2>
+        <p class="meta" *ngIf="bookingError"><i class="pi pi-exclamation-triangle"></i> {{ bookingError }}</p>
+        <p class="meta" *ngIf="isCheckoutLoading"><i class="pi pi-spin pi-spinner"></i> Submitting checkout...</p>
+        <div class="form-grid" *ngIf="bokunPackageId">
+          <label>
+            Checkout Option
+            <select [(ngModel)]="selectedCheckoutOption">
+              <option *ngFor="let option of checkoutOptions" [value]="option.type">{{ option.label }} ({{ option.currency }} {{ option.amount }})</option>
+            </select>
+          </label>
+          <label>
+            Payment Method
+            <select [(ngModel)]="selectedPaymentMethod">
+              <option *ngFor="let method of selectedOptionPaymentMethods" [value]="method">{{ method }}</option>
+            </select>
+          </label>
+        </div>
         <div class="form-grid">
           <label>
             Name on Card
@@ -163,6 +194,8 @@
       <section class="panel" *ngIf="currentStep === 5">
         <h2><i class="pi pi-check-circle"></i> Confirmation</h2>
         <p class="confirm-text">Your booking has been captured and is ready for final processing.</p>
+        <p class="confirm-text" *ngIf="bookingConfirmationCode">Confirmation code: <strong>{{ bookingConfirmationCode }}</strong></p>
+        <p class="confirm-text" *ngIf="bookingReference">Booking reference: <strong>{{ bookingReference }}</strong></p>
         <div class="confirm-grid">
           <p><span>Date:</span> <strong>{{ selectedDate.day }}, {{ selectedDate.month }} {{ selectedDate.date }}</strong></p>
           <p><span>Time:</span> <strong>{{ selectedTime }}</strong></p>
@@ -175,7 +208,7 @@
         <button type="button" class="prev-btn" (click)="previousStep()" [disabled]="currentStep === 1">Back</button>
         <button type="button" class="next-btn" *ngIf="currentStep < steps.length"
           [disabled]="!canMoveNext" (click)="nextStep()">
-          {{ currentStep === 4 ? 'Review Confirmation' : 'Next Step' }} <i class="pi pi-angle-right"></i>
+          {{ currentStep === 4 ? 'Submit Booking' : 'Next Step' }} <i class="pi pi-angle-right"></i>
         </button>
         <button type="button" class="next-btn" *ngIf="currentStep === steps.length" routerLink="/">
           Finish & Return Home <i class="pi pi-home"></i>
