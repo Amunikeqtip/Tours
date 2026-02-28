@@ -45,6 +45,9 @@
   </section>
 
   <section class="section grid-wrap">
+    <p class="empty" *ngIf="isLoading">Loading packages from Bokun...</p>
+    <p class="empty" *ngIf="!isLoading && errorMessage">{{ errorMessage }}</p>
+
     <article class="pkg-card" *ngFor="let pkg of filteredPackages">
       <div class="pkg-image" [style.background-image]="'url(' + pkg.image + ')'">
         <span>{{ pkg.category }}</span>
@@ -74,7 +77,7 @@
       </div>
     </article>
 
-    <p class="empty" *ngIf="filteredPackages.length === 0">No packages matched your search. Try another keyword or category.</p>
+    <p class="empty" *ngIf="!isLoading && !errorMessage && filteredPackages.length === 0">No packages matched your search. Try another keyword or category.</p>
   </section>
 
   <section class="detail-modal" *ngIf="selectedPackage">

@@ -56,7 +56,12 @@ public sealed class BokunClient : IBokunClient
         if (!response.IsSuccessStatusCode)
         {
             _logger.LogWarning("Bokun request failed. Status: {Status}. Body: {Body}", (int)response.StatusCode, responseContent);
-            throw new InvalidOperationException($"Bokun returned {(int)response.StatusCode}: {response.ReasonPhrase}");
+            var message = responseContent;
+            if (message.Length > 600)
+            {
+                message = $"{message[..600]}...";
+            }
+            throw new InvalidOperationException($"Bokun returned {(int)response.StatusCode}: {response.ReasonPhrase}. Body: {message}");
         }
 
         using var doc = JsonDocument.Parse(responseContent);
@@ -67,7 +72,7 @@ public sealed class BokunClient : IBokunClient
     {
         var baseUrl = _options.BaseUrl.TrimEnd('/');
         var requestUri = new Uri($"{baseUrl}{relativePath}");
-        var dateHeader = DateTimeOffset.UtcNow.ToString("r", CultureInfo.InvariantCulture);
+        var dateHeader = DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         var pathToSign = requestUri.PathAndQuery;
         var signature = CreateSignature(dateHeader, _options.AccessKey, method.Method, pathToSign, _options.SecretKey);
 
