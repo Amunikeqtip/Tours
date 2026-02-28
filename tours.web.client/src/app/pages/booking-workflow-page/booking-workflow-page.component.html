@@ -166,7 +166,9 @@
           </label>
           <label>
             Phone Number
-            <input type="text" [(ngModel)]="phone" />
+            <input type="text" [(ngModel)]="phone" placeholder="+263771234567" />
+            <small class="form-hint" *ngIf="phone.trim().length">Will be sent as: {{ normalizedPhone }}</small>
+            <small class="form-error" *ngIf="phone.trim().length && !isPhoneValid">Use 7-15 digits, optionally starting with +.</small>
           </label>
           <label>
             Personal ID / Passport
@@ -190,35 +192,48 @@
         <div class="form-grid" *ngIf="bokunPackageId">
           <label>
             Checkout Option
-            <select [(ngModel)]="selectedCheckoutOption">
-              <option *ngFor="let option of checkoutOptions" [value]="option.type">{{ option.label }} ({{ option.currency }} {{ option.amount }})</option>
+            <select [(ngModel)]="selectedCheckoutOption" (ngModelChange)="onCheckoutOptionChange()">
+              <option *ngFor="let option of checkoutOptions" [value]="option.type">{{ option.label || formatCheckoutOption(option.type) }} ({{ formatMoney(option.amount, option.currency) }})</option>
             </select>
           </label>
           <label>
             Payment Method
             <select [(ngModel)]="selectedPaymentMethod">
-              <option *ngFor="let method of selectedOptionPaymentMethods" [value]="method">{{ method }}</option>
+              <option *ngFor="let method of selectedOptionPaymentMethods" [value]="method">{{ formatPaymentMethod(method) }}</option>
             </select>
           </label>
         </div>
-        <div class="form-grid">
+        <p class="meta" *ngIf="bokunPackageId && selectedCheckoutOption">
+          Selected: <strong>{{ formatCheckoutOption(selectedCheckoutOption) }}</strong>
+        </p>
+        <p class="meta" *ngIf="bokunPackageId && selectedPaymentMethod">
+          Method: <strong>{{ formatPaymentMethod(selectedPaymentMethod) }}</strong>
+        </p>
+        <div class="form-grid" *ngIf="!bokunPackageId || isCardPaymentSelected">
           <label>
             Name on Card
-            <input type="text" [(ngModel)]="cardName" />
+            <input type="text" [(ngModel)]="cardName" autocomplete="cc-name" placeholder="John Doe" />
+            <small class="form-error" *ngIf="cardName.trim().length && !isCardNameValid">Enter cardholder name.</small>
           </label>
           <label>
             Card Number
-            <input type="text" [(ngModel)]="cardNumber" />
+            <input type="text" [(ngModel)]="cardNumber" autocomplete="cc-number" placeholder="4111 1111 1111 1111" />
+            <small class="form-error" *ngIf="cardNumber.trim().length && !isCardNumberValid">Use 12 to 19 digits.</small>
           </label>
           <label>
             Expiry (MM/YY)
-            <input type="text" [(ngModel)]="expiry" />
+            <input type="text" [(ngModel)]="expiry" autocomplete="cc-exp" placeholder="08/28" />
+            <small class="form-error" *ngIf="expiry.trim().length && !isExpiryValid">Use MM/YY format.</small>
           </label>
           <label>
             CVV
-            <input type="password" [(ngModel)]="cvv" />
+            <input type="password" [(ngModel)]="cvv" autocomplete="cc-csc" placeholder="123" />
+            <small class="form-error" *ngIf="cvv.trim().length && !isCvvValid">Use 3 or 4 digits.</small>
           </label>
         </div>
+        <p class="meta" *ngIf="bokunPackageId && !isCardPaymentSelected">
+          Card details are not required for {{ formatPaymentMethod(selectedPaymentMethod) || 'this payment method' }}.
+        </p>
       </section>
 
       <section class="panel" *ngIf="currentStep === 5">

@@ -319,15 +319,75 @@ public sealed class BokunClient : IBokunClient
         };
 
         var path = "/checkout.json/submit";
+        var responseContent = await PostCheckoutSubmitAsync(path, payload, cancellationToken);
+
+        // If Bokun still rejects phone number, retry once without phoneNumber.
+        if (IsPhoneValidationError(responseContent))
+        {
+            if (dict.TryGetValue("mainContactDetails", out var answersObj) &&
+                answersObj is IReadOnlyList<object> answers)
+            {
+                dict["mainContactDetails"] = RemoveAnswerByQuestionId(answers, "phoneNumber");
+                responseContent = await PostCheckoutSubmitAsync(path, payload, cancellationToken);
+            }
+        }
+
+        using var doc = JsonDocument.Parse(responseContent);
+        return ParseCheckoutSubmitResponse(doc.RootElement);
+    }
+
+    private async Task<string> PostCheckoutSubmitAsync(
+        string path,
+        Dictionary<string, object?> payload,
+        CancellationToken cancellationToken)
+    {
         var body = JsonSerializer.Serialize(payload, JsonOptions);
 
         using var httpRequest = CreateSignedRequest(HttpMethod.Post, path, body);
         using var response = await _httpClient.SendAsync(httpRequest, cancellationToken);
         var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
-        EnsureSuccess(response, responseContent, "Bokun checkout submit request failed.");
 
-        using var doc = JsonDocument.Parse(responseContent);
-        return ParseCheckoutSubmitResponse(doc.RootElement);
+        if (!response.IsSuccessStatusCode && !IsPhoneValidationError(responseContent))
+        {
+            EnsureSuccess(response, responseContent, "Bokun checkout submit request failed.");
+        }
+
+        if (!response.IsSuccessStatusCode && IsPhoneValidationError(responseContent))
+        {
+            _logger.LogWarning("Bokun rejected phone number format. Retrying submit without phoneNumber.");
+        }
+
+        return responseContent;
+    }
+
+    private static bool IsPhoneValidationError(string responseContent)
+    {
+        if (string.IsNullOrWhiteSpace(responseContent))
+        {
+            return false;
+        }
+
+        return responseContent.Contains("\"questionId\":\"phoneNumber\"", StringComparison.OrdinalIgnoreCase) &&
+               responseContent.Contains("Not a valid phone number", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static IReadOnlyList<object> RemoveAnswerByQuestionId(IReadOnlyList<object> answers, string questionId)
+    {
+        var filtered = new List<object>();
+        foreach (var entry in answers)
+        {
+            if (entry is Dictionary<string, object?> dict &&
+                dict.TryGetValue("questionId", out var idValue) &&
+                idValue is string id &&
+                string.Equals(id, questionId, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            filtered.Add(entry);
+        }
+
+        return filtered;
     }
 
     private HttpRequestMessage CreateSignedRequest(HttpMethod method, string relativePath, string? jsonBody = null)

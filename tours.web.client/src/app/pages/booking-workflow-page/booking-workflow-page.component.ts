@@ -277,6 +277,9 @@ export class BookingWorkflowPageComponent {
       return this.adults + this.children > 0 && !this.selectedDate.disabled && this.selectedTime.trim().length > 0;
     }
     if (this.currentStep === 3) {
+      if (this.phone.trim().length > 0 && !this.isPhoneValid) {
+        return false;
+      }
       if (this.requiresPersonalId && this.personalIdNumber.trim().length < 2) {
         return false;
       }
@@ -284,7 +287,14 @@ export class BookingWorkflowPageComponent {
     }
     if (this.currentStep === 4) {
       if (this.bokunPackageId) {
-        return this.selectedCheckoutOption.length > 0 && this.selectedPaymentMethod.length > 0 && !this.isCheckoutLoading;
+        const baseValid = this.selectedCheckoutOption.length > 0 && this.selectedPaymentMethod.length > 0 && !this.isCheckoutLoading;
+        if (!baseValid) {
+          return false;
+        }
+        if (this.isCardPaymentSelected) {
+          return this.isCardNameValid && this.isCardNumberValid && this.isExpiryValid && this.isCvvValid;
+        }
+        return true;
       }
       return this.cardName.trim().length > 1 && this.cardNumber.trim().length >= 12 && this.expiry.trim().length >= 4 && this.cvv.trim().length >= 3;
     }
@@ -303,6 +313,77 @@ export class BookingWorkflowPageComponent {
   get selectedOptionPaymentMethods(): string[] {
     const option = this.checkoutOptions.find((item) => item.type === this.selectedCheckoutOption) ?? this.checkoutOptions[0];
     return option?.paymentMethods ?? [];
+  }
+
+  get isCardPaymentSelected(): boolean {
+    return this.selectedPaymentMethod === 'CARD';
+  }
+
+  get isCardNameValid(): boolean {
+    return this.cardName.trim().length > 1;
+  }
+
+  get isCardNumberValid(): boolean {
+    const digits = this.cardNumber.replace(/\D/g, '');
+    return digits.length >= 12 && digits.length <= 19;
+  }
+
+  get isExpiryValid(): boolean {
+    return /^(0[1-9]|1[0-2])\/\d{2}$/.test(this.expiry.trim());
+  }
+
+  get isCvvValid(): boolean {
+    return /^\d{3,4}$/.test(this.cvv.trim());
+  }
+
+  formatCheckoutOption(value: string): string {
+    return value
+      .replaceAll('_', ' ')
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  }
+
+  formatPaymentMethod(value: string): string {
+    return value
+      .replaceAll('_', ' ')
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  }
+
+  formatMoney(amount: number, currency: string): string {
+    const normalizedCurrency = currency || 'USD';
+    try {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: normalizedCurrency }).format(amount || 0);
+    } catch {
+      return `${normalizedCurrency} ${amount ?? 0}`;
+    }
+  }
+
+  onCheckoutOptionChange(): void {
+    const allowed = this.selectedOptionPaymentMethods;
+    if (!allowed.length) {
+      this.selectedPaymentMethod = '';
+      return;
+    }
+    if (!allowed.includes(this.selectedPaymentMethod)) {
+      this.selectedPaymentMethod = this.selectPreferredPaymentMethod(allowed);
+    }
+  }
+
+  get normalizedPhone(): string {
+    const digitsOnly = this.phone.replace(/\D/g, '');
+    if (!digitsOnly) {
+      return '';
+    }
+    return `+${digitsOnly}`;
+  }
+
+  get isPhoneValid(): boolean {
+    if (this.phone.trim().length === 0) {
+      return true;
+    }
+    const digits = this.phone.replace(/\D/g, '');
+    return digits.length >= 7 && digits.length <= 15;
   }
 
   selectDate(day: DayOption): void {
