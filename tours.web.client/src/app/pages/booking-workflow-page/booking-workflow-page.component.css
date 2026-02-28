@@ -16,7 +16,7 @@
 
 .steps {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin-bottom: 0.8rem;
 }
 
@@ -97,6 +97,120 @@
   color: #2288ff;
   font-size: 1rem;
   margin-right: 0.3rem;
+}
+
+.activity-panel h3 {
+  font-size: 1.3rem;
+  margin: 0.35rem 0;
+}
+
+.activity-top {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: 1.1fr 1.4fr;
+}
+
+.activity-main-image {
+  background-position: center;
+  background-size: cover;
+  border-radius: 12px;
+  min-height: 210px;
+}
+
+.activity-info .badge {
+  background: #dbeafe;
+  border-radius: 999px;
+  color: #1d4ed8;
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.22rem 0.55rem;
+}
+
+.activity-info .meta {
+  color: #64748b;
+  font-size: 0.78rem;
+  margin: 0.25rem 0 0;
+}
+
+.activity-info .meta span {
+  margin-left: 0.55rem;
+}
+
+.activity-info .overview {
+  color: #475569;
+  line-height: 1.55;
+  margin: 0.55rem 0;
+}
+
+.includes h4,
+.itinerary h4 {
+  margin: 0 0 0.35rem;
+}
+
+.includes ul {
+  display: grid;
+  gap: 0.35rem 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.includes li {
+  color: #475569;
+  font-size: 0.78rem;
+}
+
+.includes li i {
+  color: #2288ff;
+  margin-right: 0.25rem;
+}
+
+.activity-thumbs {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0.65rem;
+}
+
+.activity-thumbs img {
+  border-radius: 10px;
+  display: block;
+  height: 120px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.itinerary {
+  border-top: 1px solid #e2e8f0;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.itinerary article {
+  border-left: 2px solid #bfdbfe;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: 72px 1fr;
+  margin-top: 0.55rem;
+  padding-left: 0.7rem;
+}
+
+.itinerary span {
+  color: #1d4ed8;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.itinerary h5 {
+  margin: 0;
+}
+
+.itinerary p {
+  color: #64748b;
+  margin: 0.2rem 0 0;
 }
 
 .calendar-controls {
@@ -186,6 +300,13 @@
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.time-select-row {
+  align-items: end;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: minmax(0, 1fr) 170px;
+}
+
 .time {
   background: #ffffff;
   border: 1px solid #d9e1eb;
@@ -201,6 +322,27 @@
   background: #2288ff;
   border-color: #2288ff;
   color: #ffffff;
+}
+
+.custom-time {
+  color: #475569;
+  display: grid;
+  font-size: 0.75rem;
+  font-weight: 700;
+  gap: 0.28rem;
+}
+
+.custom-time input {
+  border: 1px solid #d9e1eb;
+  border-radius: 10px;
+  font: inherit;
+  padding: 0.52rem 0.55rem;
+}
+
+.time-empty {
+  color: #b45309;
+  font-size: 0.8rem;
+  margin: 0.65rem 0 0;
 }
 
 .guests-grid {
@@ -424,8 +566,16 @@
     grid-template-columns: 1fr;
   }
 
+  .activity-top {
+    grid-template-columns: 1fr;
+  }
+
   .time-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .time-select-row {
+    grid-template-columns: 1fr;
   }
 
   .form-grid,
@@ -437,6 +587,12 @@
 @media (max-width: 760px) {
   .calendar-controls {
     flex-direction: column;
+  }
+
+  .includes ul,
+  .activity-thumbs,
+  .itinerary article {
+    grid-template-columns: 1fr;
   }
 
   .days-grid {

@@ -11,7 +11,40 @@
         </article>
       </div>
 
-      <section class="panel" *ngIf="currentStep === 1">
+      <section class="panel activity-panel" *ngIf="currentStep === 1">
+        <h2><i class="pi pi-info-circle"></i> Activity Details</h2>
+        <div class="activity-top">
+          <div class="activity-main-image" [style.background-image]="'url(' + activity.gallery[0] + ')'"></div>
+          <div class="activity-info">
+            <p class="badge">{{ activity.subtitle }}</p>
+            <h3>{{ activity.title }}</h3>
+            <p class="meta"><i class="pi pi-map-marker"></i> {{ activity.location }} <span><i class="pi pi-clock"></i> {{ activity.duration }}</span> <span><i class="pi pi-star-fill"></i> {{ activity.rating }} ({{ activity.reviews }})</span></p>
+            <p class="overview">{{ activity.overview }}</p>
+            <div class="includes">
+              <h4>Included</h4>
+              <ul>
+                <li *ngFor="let item of activity.includes"><i class="pi pi-check-circle"></i> {{ item }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="activity-thumbs">
+          <img [src]="activity.gallery[1]" alt="activity photo 2" />
+          <img [src]="activity.gallery[2]" alt="activity photo 3" />
+        </div>
+        <div class="itinerary">
+          <h4>Itinerary</h4>
+          <article *ngFor="let item of itinerary">
+            <span>{{ item.time }}</span>
+            <div>
+              <h5>{{ item.title }}</h5>
+              <p>{{ item.description }}</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" *ngIf="currentStep === 2">
         <h2><i class="pi pi-calendar"></i> Select Date & Time</h2>
         <div class="calendar-controls">
           <label>
@@ -41,16 +74,23 @@
         </div>
 
         <h2><i class="pi pi-clock"></i> Select Start Time</h2>
-        <div class="time-grid">
-          <button type="button" class="time" *ngFor="let time of times"
-            [class.active]="selectedTime === time"
-            (click)="selectTime(time)">
-            {{ time }}
-          </button>
+        <div class="time-select-row">
+          <div class="time-grid">
+            <button type="button" class="time" *ngFor="let time of timeOptions"
+              [class.active]="selectedTime === time"
+              (click)="selectTime(time)">
+              {{ time }}
+            </button>
+          </div>
+          <label class="custom-time">
+            Pick exact time
+            <input type="time" [ngModel]="selectedTimeInput" (ngModelChange)="onTimeInputChange($event)" />
+          </label>
         </div>
+        <p class="time-empty" *ngIf="timeOptions.length === 0">No remaining slots for this date. Please choose another date.</p>
       </section>
 
-      <section class="panel" *ngIf="currentStep === 1">
+      <section class="panel" *ngIf="currentStep === 2">
         <h2><i class="pi pi-users"></i> Number of Guests</h2>
         <div class="guests-grid">
           <article>
@@ -76,7 +116,7 @@
         </div>
       </section>
 
-      <section class="panel" *ngIf="currentStep === 2">
+      <section class="panel" *ngIf="currentStep === 3">
         <h2><i class="pi pi-user-edit"></i> Passenger Details</h2>
         <div class="form-grid">
           <label>
@@ -98,7 +138,7 @@
         </div>
       </section>
 
-      <section class="panel" *ngIf="currentStep === 3">
+      <section class="panel" *ngIf="currentStep === 4">
         <h2><i class="pi pi-credit-card"></i> Payment</h2>
         <div class="form-grid">
           <label>
@@ -120,7 +160,7 @@
         </div>
       </section>
 
-      <section class="panel" *ngIf="currentStep === 4">
+      <section class="panel" *ngIf="currentStep === 5">
         <h2><i class="pi pi-check-circle"></i> Confirmation</h2>
         <p class="confirm-text">Your booking has been captured and is ready for final processing.</p>
         <div class="confirm-grid">
@@ -133,11 +173,11 @@
 
       <div class="actions">
         <button type="button" class="prev-btn" (click)="previousStep()" [disabled]="currentStep === 1">Back</button>
-        <button type="button" class="next-btn" *ngIf="currentStep < 4"
+        <button type="button" class="next-btn" *ngIf="currentStep < steps.length"
           [disabled]="!canMoveNext" (click)="nextStep()">
-          {{ currentStep === 3 ? 'Review Confirmation' : 'Next Step' }} <i class="pi pi-angle-right"></i>
+          {{ currentStep === 4 ? 'Review Confirmation' : 'Next Step' }} <i class="pi pi-angle-right"></i>
         </button>
-        <button type="button" class="next-btn" *ngIf="currentStep === 4" routerLink="/">
+        <button type="button" class="next-btn" *ngIf="currentStep === steps.length" routerLink="/">
           Finish & Return Home <i class="pi pi-home"></i>
         </button>
       </div>
@@ -146,11 +186,11 @@
     <aside class="booking-side">
       <section class="summary-card">
         <div class="tour-head">
-          <img src="https://source.unsplash.com/200x200/?victoria-falls,aerial" alt="tour preview" />
+          <img [src]="activity.gallery[0]" alt="tour preview" />
           <div>
-            <p>Top Rated Activity</p>
-            <h3>Victoria Falls Guided Tour & Lunch</h3>
-            <span><i class="pi pi-map-marker"></i> Victoria Falls, Zim</span>
+            <p>{{ activity.subtitle }}</p>
+            <h3>{{ activity.title }}</h3>
+            <span><i class="pi pi-map-marker"></i> {{ activity.location }}</span>
           </div>
         </div>
         <div class="tour-meta">

@@ -8,6 +8,12 @@ interface DayOption {
   disabled?: boolean;
 }
 
+interface ItineraryItem {
+  time: string;
+  title: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-booking-workflow-page',
   templateUrl: './booking-workflow-page.component.html',
@@ -15,18 +21,57 @@ interface DayOption {
   standalone: false
 })
 export class BookingWorkflowPageComponent {
-  readonly steps = ['Selection', 'Details', 'Payment', 'Confirmation'];
-  readonly times = ['07:30 AM', '09:00 AM', '11:30 AM', '02:00 PM', '04:30 PM'];
+  readonly steps = ['Activity', 'Selection', 'Details', 'Payment', 'Confirmation'];
   readonly adultPrice = 95;
   readonly childPrice = 67;
+  readonly activity = {
+    title: 'Victoria Falls Guided Tour & Lunch',
+    subtitle: 'Top Rated Activity',
+    location: 'Victoria Falls, Zim',
+    duration: '5 Hours',
+    rating: '4.9',
+    reviews: '1,248 reviews',
+    overview:
+      'Explore rainforest viewpoints with expert local guides, then enjoy a curated lunch overlooking the gorge. This experience is designed for first-time and returning travelers who want a complete Falls introduction.',
+    includes: ['Licensed local guide', 'Hotel pickup and drop-off', 'Entry coordination support', 'Lunch included'],
+    gallery: [
+      'https://source.unsplash.com/1200x700/?victoria-falls,aerial',
+      'https://source.unsplash.com/800x500/?waterfall,rainforest',
+      'https://source.unsplash.com/800x500/?zimbabwe,river,viewpoint'
+    ]
+  };
+  readonly itinerary: ItineraryItem[] = [
+    {
+      time: '08:30',
+      title: 'Pickup and Welcome Briefing',
+      description: 'Meet your guide and review the route, weather conditions, and best photo stops.'
+    },
+    {
+      time: '09:15',
+      title: 'Rainforest and Main Viewpoints',
+      description: 'Walk key viewpoints with guided interpretation of geology, wildlife, and local history.'
+    },
+    {
+      time: '11:30',
+      title: 'Leisure and Photo Session',
+      description: 'Free time for photography, short breaks, and optional souvenir browsing.'
+    },
+    {
+      time: '12:30',
+      title: 'Scenic Lunch',
+      description: 'Finish with a relaxed lunch stop and trip support for your next activity.'
+    }
+  ];
   readonly monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
     'August', 'September', 'October', 'November', 'December'];
   readonly yearOptions = this.buildYearOptions();
 
   days: DayOption[] = [];
+  timeOptions: string[] = [];
   currentStep = 1;
   selectedDate!: DayOption;
-  selectedTime = this.times[1];
+  selectedTime = '';
+  selectedTimeInput = '';
   selectedMonth = new Date().getMonth();
   selectedYear = new Date().getFullYear();
 
@@ -72,12 +117,15 @@ export class BookingWorkflowPageComponent {
 
   get canMoveNext(): boolean {
     if (this.currentStep === 1) {
-      return this.adults + this.children > 0 && !this.selectedDate.disabled;
+      return true;
     }
     if (this.currentStep === 2) {
-      return this.fullName.trim().length > 1 && this.email.includes('@') && this.phone.trim().length > 5;
+      return this.adults + this.children > 0 && !this.selectedDate.disabled && this.selectedTime.trim().length > 0;
     }
     if (this.currentStep === 3) {
+      return this.fullName.trim().length > 1 && this.email.includes('@') && this.phone.trim().length > 5;
+    }
+    if (this.currentStep === 4) {
       return this.cardName.trim().length > 1 && this.cardNumber.trim().length >= 12 && this.expiry.trim().length >= 4 && this.cvv.trim().length >= 3;
     }
     return false;
@@ -88,10 +136,20 @@ export class BookingWorkflowPageComponent {
       return;
     }
     this.selectedDate = day;
+    this.refreshTimeOptions();
   }
 
   selectTime(time: string): void {
     this.selectedTime = time;
+    this.selectedTimeInput = this.formatToInputTime(time);
+  }
+
+  onTimeInputChange(value: string): void {
+    if (!value) {
+      return;
+    }
+    this.selectedTimeInput = value;
+    this.selectedTime = this.formatTimeLabel(value);
   }
 
   adjustAdults(delta: number): void {
@@ -103,14 +161,14 @@ export class BookingWorkflowPageComponent {
   }
 
   goToStep(step: number): void {
-    if (step < 1 || step > 4) {
+    if (step < 1 || step > this.steps.length) {
       return;
     }
     this.currentStep = step;
   }
 
   nextStep(): void {
-    if (!this.canMoveNext || this.currentStep >= 4) {
+    if (!this.canMoveNext || this.currentStep >= this.steps.length) {
       return;
     }
     this.currentStep += 1;
@@ -132,10 +190,12 @@ export class BookingWorkflowPageComponent {
     const firstAvailable = this.days.find((d) => !d.disabled);
     if (!this.selectedDate || this.selectedDate.month !== this.monthNames[this.selectedMonth] || this.selectedDate.date > this.days.length) {
       this.selectedDate = firstAvailable ?? this.days[0];
+      this.refreshTimeOptions();
       return;
     }
     const sameDate = this.days.find((d) => d.isoDate === this.selectedDate.isoDate);
     this.selectedDate = sameDate ?? firstAvailable ?? this.days[0];
+    this.refreshTimeOptions();
   }
 
   private buildDaysForMonth(year: number, month: number): DayOption[] {
@@ -162,5 +222,67 @@ export class BookingWorkflowPageComponent {
   private buildYearOptions(): number[] {
     const now = new Date().getFullYear();
     return [now, now + 1, now + 2, now + 3];
+  }
+
+  private refreshTimeOptions(): void {
+    this.timeOptions = this.buildTimeOptions(this.selectedDate.isoDate);
+    if (this.timeOptions.length === 0) {
+      this.selectedTime = '';
+      this.selectedTimeInput = '';
+      return;
+    }
+
+    if (!this.selectedTime || !this.timeOptions.includes(this.selectedTime)) {
+      this.selectedTime = this.timeOptions[0];
+    }
+    this.selectedTimeInput = this.formatToInputTime(this.selectedTime);
+  }
+
+  private buildTimeOptions(isoDate: string): string[] {
+    const slots: string[] = [];
+    const startMinutes = 6 * 60;
+    const endMinutes = 18 * 60;
+    const selected = new Date(`${isoDate}T00:00:00`);
+    const now = new Date();
+
+    let minAllowed = startMinutes;
+    if (
+      selected.getFullYear() === now.getFullYear() &&
+      selected.getMonth() === now.getMonth() &&
+      selected.getDate() === now.getDate()
+    ) {
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      minAllowed = Math.max(startMinutes, Math.ceil(currentMinutes / 30) * 30);
+    }
+
+    for (let minutes = minAllowed; minutes <= endMinutes; minutes += 30) {
+      const hh = String(Math.floor(minutes / 60)).padStart(2, '0');
+      const mm = String(minutes % 60).padStart(2, '0');
+      slots.push(this.formatTimeLabel(`${hh}:${mm}`));
+    }
+
+    return slots;
+  }
+
+  private formatTimeLabel(value24h: string): string {
+    const [hRaw, mRaw] = value24h.split(':');
+    const h = Number(hRaw);
+    const m = Number(mRaw);
+    const period = h >= 12 ? 'PM' : 'AM';
+    const displayHour = h % 12 === 0 ? 12 : h % 12;
+    return `${String(displayHour).padStart(2, '0')}:${String(m).padStart(2, '0')} ${period}`;
+  }
+
+  private formatToInputTime(label: string): string {
+    const [time, period] = label.split(' ');
+    const [hRaw, mRaw] = time.split(':');
+    let h = Number(hRaw);
+    if (period === 'PM' && h !== 12) {
+      h += 12;
+    }
+    if (period === 'AM' && h === 12) {
+      h = 0;
+    }
+    return `${String(h).padStart(2, '0')}:${mRaw}`;
   }
 }
