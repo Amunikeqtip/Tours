@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:55899",
+"RedirectUrl": "",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Source\\repo\\Tours.Web\\Tours.Web.Server\\..\\tours.web.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

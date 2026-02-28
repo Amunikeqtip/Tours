@@ -764,11 +764,8 @@ public sealed class BokunClient : IBokunClient
         AddAnswer(answers, "lastName", contact.LastName);
         AddAnswer(answers, "email", contact.Email);
         AddAnswer(answers, "personalIdNumber", string.IsNullOrWhiteSpace(contact.PersonalIdNumber) ? "N/A" : contact.PersonalIdNumber);
-        var normalizedPhone = NormalizePhone(contact.PhoneNumber);
-        if (!string.IsNullOrWhiteSpace(normalizedPhone))
-        {
-            AddAnswer(answers, "phoneNumber", normalizedPhone);
-        }
+        // Phone is optional for this integration and Bokun has strict formatting checks.
+        // To avoid failed checkouts on optional input, we intentionally do not send phone.
         AddAnswer(answers, "nationality", contact.Nationality);
         AddAnswer(answers, "title", contact.Title);
         AddAnswer(answers, "gender", contact.Gender);
@@ -787,26 +784,6 @@ public sealed class BokunClient : IBokunClient
             ["questionId"] = questionId,
             ["values"] = new[] { value.Trim() }
         });
-    }
-
-    private static string? NormalizePhone(string? raw)
-    {
-        if (string.IsNullOrWhiteSpace(raw))
-        {
-            return null;
-        }
-
-        var trimmed = raw.Trim();
-        var hasLeadingPlus = trimmed.StartsWith('+');
-        var digitsOnly = new string(trimmed.Where(char.IsDigit).ToArray());
-
-        // E.164 allows up to 15 digits and typically at least 7 meaningful digits.
-        if (digitsOnly.Length < 7 || digitsOnly.Length > 15)
-        {
-            return null;
-        }
-
-        return hasLeadingPlus ? $"+{digitsOnly}" : $"+{digitsOnly}";
     }
 
     private static IReadOnlyList<BokunPackageSummary> ParsePackages(JsonElement root)
