@@ -28,7 +28,11 @@ interface BokunPackageDetailApi {
   location: string;
   summary: string;
   description: string;
+  highlights: string[];
   includes: string[];
+  requirements: string;
+  attention: string;
+  cancellationPolicy: string;
   itinerary: { time: string; title: string; detail: string }[];
   gallery: string[];
 }
@@ -121,7 +125,11 @@ export class BookingWorkflowPageComponent {
     reviews: '1,248 reviews',
     overview:
       'Explore rainforest viewpoints with expert local guides, then enjoy a curated lunch overlooking the gorge. This experience is designed for first-time and returning travelers who want a complete Falls introduction.',
+    highlights: ['Guided experience', 'Photo opportunities', 'Local support'],
     includes: ['Licensed local guide', 'Hotel pickup and drop-off', 'Entry coordination support', 'Lunch included'],
+    requirements: '',
+    attention: '',
+    cancellation: 'Cancellation policy depends on selected operator terms.',
     gallery: [
       'https://images.pexels.com/photos/27878405/pexels-photo-27878405.jpeg?auto=compress&cs=tinysrgb&w=1400',
       'https://images.pexels.com/photos/16241868/pexels-photo-16241868.jpeg?auto=compress&cs=tinysrgb&w=1400',
@@ -503,6 +511,7 @@ export class BookingWorkflowPageComponent {
     this.http.get<BokunPackageDetailApi>(`${environment.apiBaseUrl}/bokun/packages/${encodeURIComponent(pkgId)}`).subscribe({
       next: (detail) => {
         const summary = detail.summary?.trim() || detail.description?.trim() || this.activity.overview;
+        const highlights = detail.highlights?.length ? detail.highlights : this.activity.highlights;
         const includes = detail.includes?.length ? detail.includes : this.activity.includes;
         const gallery = detail.gallery?.length ? detail.gallery : this.activity.gallery;
 
@@ -515,7 +524,11 @@ export class BookingWorkflowPageComponent {
           rating: detail.rating > 0 ? detail.rating.toFixed(1) : this.activity.rating,
           reviews: detail.reviewCount > 0 ? `${detail.reviewCount} reviews` : this.activity.reviews,
           overview: summary,
+          highlights,
           includes,
+          requirements: detail.requirements?.trim() || this.activity.requirements,
+          attention: detail.attention?.trim() || this.activity.attention,
+          cancellation: detail.cancellationPolicy?.trim() || this.activity.cancellation,
           gallery: this.ensureGallerySize(gallery)
         };
 

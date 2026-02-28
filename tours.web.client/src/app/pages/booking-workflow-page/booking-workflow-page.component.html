@@ -22,6 +22,12 @@
             <p class="meta"><i class="pi pi-map-marker"></i> {{ activity.location }} <span><i class="pi pi-clock"></i> {{ activity.duration }}</span> <span><i class="pi pi-star-fill"></i> {{ activity.rating }} ({{ activity.reviews }})</span></p>
             <p class="meta" *ngIf="isActivityLoading"><i class="pi pi-spin pi-spinner"></i> Loading live package details...</p>
             <p class="overview">{{ activity.overview }}</p>
+            <div class="includes" *ngIf="activity.highlights?.length">
+              <h4>Highlights</h4>
+              <ul>
+                <li *ngFor="let item of activity.highlights"><i class="pi pi-bolt"></i> {{ item }}</li>
+              </ul>
+            </div>
             <div class="includes">
               <h4>Included</h4>
               <ul>
@@ -41,6 +47,30 @@
             <div>
               <h5>{{ item.title }}</h5>
               <p>{{ item.description }}</p>
+            </div>
+          </article>
+        </div>
+        <div class="itinerary" *ngIf="activity.requirements">
+          <h4>Requirements</h4>
+          <article>
+            <div>
+              <p>{{ activity.requirements }}</p>
+            </div>
+          </article>
+        </div>
+        <div class="itinerary" *ngIf="activity.attention">
+          <h4>Important Notes</h4>
+          <article>
+            <div>
+              <p>{{ activity.attention }}</p>
+            </div>
+          </article>
+        </div>
+        <div class="itinerary" *ngIf="activity.cancellation">
+          <h4>Cancellation Policy</h4>
+          <article>
+            <div>
+              <p>{{ activity.cancellation }}</p>
             </div>
           </article>
         </div>
